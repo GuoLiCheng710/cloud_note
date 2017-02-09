@@ -3,31 +3,32 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.zrar.note.dao.UserDao">
 
-    <insert id="addUser" parameterType="com.zrar.note.entity.User">
-        insert into cn_user(
-            cn_user_id,
-            cn_user_name,
-            cn_user_password,
-            cn_user_token,
-            cn_user_nick
-        ) values (
-            #{id},#{name},#{password},
-            #{token},#{nick}        
-        )
-    </insert>
-	
-	<select id="findUserByName" parameterType="string" resultType="com.zrar.note.entity.User">
+	<insert id="addUser" parameterType="com.zrar.note.entity.User">
+		insert into cn_user(
+		cn_user_id,
+		cn_user_name,
+		cn_user_password,
+		cn_user_token,
+		cn_user_nick
+		) values (
+		#{id},#{name},#{password},
+		#{token},#{nick}
+		)
+	</insert>
+
+	<select id="findUserByName" parameterType="string"
+		resultType="com.zrar.note.entity.User">
 		select
-			cn_user_id as id,
-			cn_user_name as name,
-			cn_user_password as password,
-			cn_user_token as token,
-			cn_user_nick as nick
+		cn_user_id as id,
+		cn_user_name as name,
+		cn_user_password as password,
+		cn_user_token as token,
+		cn_user_nick as nick
 		from
-			cn_user
+		cn_user
 		where
-			cn_user_name = #{name}
+		cn_user_name = #{name}
 	</select>
-	
-	
+
+
 </mapper>
