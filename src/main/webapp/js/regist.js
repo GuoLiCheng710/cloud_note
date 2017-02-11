@@ -23,7 +23,9 @@ $(function(){
 					};
 			$.post(url,param,function(result){
 				if(result.state==0){
-					location.reload();
+					$('#back').click();
+					$('#count').val(name);
+					$('#password').focus();
 				}else if(result.state==2){
 					$('#warning_1').empty().text(result.message);
 				}else if(result.state==3){
