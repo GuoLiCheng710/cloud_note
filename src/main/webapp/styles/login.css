@@ -155,7 +155,7 @@ input[type=button]:hover{
 	top:0;
 	color:red;
 	font-size:14px;
-	display:none;
+	display:block;
 }
 .warning span{
 	animation:emo .5s linear infinite alternate;

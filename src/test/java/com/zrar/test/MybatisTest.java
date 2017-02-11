@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.zrar.note.dao.UserDao;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
+import com.zrar.note.util.Util;
 
 public class MybatisTest {
 	ClassPathXmlApplicationContext ctx;
@@ -58,7 +59,13 @@ public class MybatisTest {
         UserService service = ctx.getBean("userService", UserService.class);
         User user=service.login(name, pwd);
         System.out.println(user);
-
+    }
+    
+    @Test
+    public void testMD5(){
+    	String data = "123";
+    	String newData = Util.salMD5(data);
+    	System.out.println(newData);
     }
 
 }

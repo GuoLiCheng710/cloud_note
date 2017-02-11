@@ -1,6 +1,9 @@
 $(function(){
-	var action ={
+	var action = {
 		loginAction : function(){
+			if(action.checkUsername() + action.checkPassword() != 2){
+				return;
+			}
 			var name = $('#count').val();
 			var password = $('#password').val();
 			var url = 'user/login.do';
@@ -8,6 +11,12 @@ $(function(){
 			$.post(url,param,function(result){
 				if(result.state==0){
 					location.href = 'edit.html';
+				} else if(result.state==2){
+					$('#count-msg').empty().text(result.message);
+				} else if(result.state==3){
+					$('#password-msg').empty().text(result.message);
+				} else{
+					
 				}
 			});
 		},
@@ -18,7 +27,7 @@ $(function(){
 				return false;
 			}
 			var reg = /^\w{3,10}$/;
-			if(reg.test(name)){
+			if(reg.test(password)){
 				$('#password-msg').empty();
 				return true;
 			}else{
@@ -40,13 +49,19 @@ $(function(){
 				$('#count-msg').empty().text('3-10个字符');
 				return false;
 			}
+		},
+		keyUpEnter : function(){
+			$('#password').bind('keyup',function(event){
+				if(event.keyCode==13){
+					action.loginAction();
+				}
+			});
 		}
-		
 	}
 	$('#count').focus().blur(action.checkUsername);
 	$('#password').blur(action.checkPassword);
 	$('#login').click(action.loginAction);
-	
-	
+	action.keyUpEnter();
 });
+
 
