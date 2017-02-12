@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="styles/prettify.css"/>
 		<!-- Ueditor编辑器CSS -->
 		<link href="styles/umeditor.min.css" type="text/css" rel="stylesheet">
+		
     </head>
     <body class="animated fadeIn">
         <header class="header">
@@ -68,9 +69,10 @@
 							<div class="contact-body">
 								<ul class="contacts-list">
 									<li class="online">
-									<a  class='checked'>
-									<i class="fa fa-book" title="online" rel="tooltip-bottom">
-									</i> 默认笔记本</a></li>
+										<a  class='checked'>
+										<i class="fa fa-book" title="online" rel="tooltip-bottom"/>
+										</i>jjj默认笔记本</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -296,6 +298,15 @@
 		<script type="text/javascript" charset="utf-8" src="scripts/ue/umeditor.min.js"></script>
 		<script type="text/javascript" src="scripts/ue/lang/zh-cn.js"></script>
 		
+		<!-- cookie_util.js -->
+		<script type="text/javascript" src="scripts/cookie_util.js"></script>
+		
+		<!-- 公共的JS脚本 -->
+		<script type="text/javascript" src="js/init.js"></script>
+		<!-- 与笔记本操作相关的JS脚本 -->
+		<script type="text/javascript" src="js/notebook.js"></script>
+		<!-- 笔记本操作JS -->
+		<script type="text/javascript" src="js/notebook.js"></script>
 		<script type="text/javascript">
 			//重写JS原生alert函数
 				window.alert=function(e){

@@ -3,6 +3,8 @@ package com.zrar.test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -10,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.zrar.note.dao.NotebookDao;
 import com.zrar.note.dao.UserDao;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
@@ -68,4 +71,27 @@ public class MybatisTest {
     	System.out.println(newData);
     }
 
+    @Test
+    public void testFindNotebooksByUserId(){
+    	String userId = "39295a3d-cc9b-42b4-b206-a2e7fab7e77c";
+    	NotebookDao dao = ctx.getBean("notebookDao",NotebookDao.class);
+    	List<Map<String, Object>> list = dao.findNotebooksByUserId(userId);
+    	System.out.println(list);
+    	for(Map<String, Object> map : list){
+    		System.out.println(map);
+    	}
+    }
+    
+    @Test
+    public void testFindUserByUserId(){
+    	String userId = "39295a3d-cc9b-42b4-b206-a2e7fab7e77";
+    	UserDao dao = ctx.getBean("userDao",UserDao.class);
+    	int c = dao.findUserByUserId(userId);
+    	System.err.println(c);
+    }
+    
+    
+    
+    
+    
 }

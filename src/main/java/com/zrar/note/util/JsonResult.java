@@ -43,16 +43,10 @@ public class JsonResult implements Serializable {
 		message = e.getMessage();
 		
 	}
-	public JsonResult(NameException e){
-		this.state = 2;
+	public JsonResult (int state ,Throwable e){
+		this.state = state;
 		data = null;
 		message = e.getMessage();
-	}
-	public JsonResult(PasswordException e){
-		this.state = 3;
-		data = null;
-		message = e.getMessage();
-		
 	}
 	public JsonResult(Object data){
 		state = SUCCESS;

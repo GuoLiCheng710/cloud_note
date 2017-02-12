@@ -4,7 +4,9 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +19,7 @@ import com.zrar.note.util.JsonResult;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends AbstractController {
 		
 	@Resource
 	private UserService userService;
@@ -67,4 +69,17 @@ public class UserController {
 			return new JsonResult(e);
 		}
 	}
+	@ExceptionHandler(NameException.class)
+	@ResponseBody
+	public Object nameExp(NameException e){
+		e.printStackTrace();
+		return new JsonResult(2,e);
+	}
+	@ExceptionHandler(PasswordException.class)
+	@ResponseBody
+	public Object pwdExp(PasswordException e){
+		e.printStackTrace();
+		return new JsonResult(3,e);
+	}
+	
 }

@@ -10,13 +10,15 @@ $(function(){
 			var param = {'name':name,'password':password};
 			$.post(url,param,function(result){
 				if(result.state==0){
+					var user = result.data;
+					setCookie('userId',user.id);
 					location.href = 'edit.html';
 				} else if(result.state==2){
 					$('#count-msg').empty().text(result.message);
 				} else if(result.state==3){
 					$('#password-msg').empty().text(result.message);
 				} else{
-					
+					alert(result.message);
 				}
 			});
 		},
