@@ -11,4 +11,12 @@
 		where
 			cn_user_id=#{userId}
 	</select>
+	<select id="findNotebookByNotebookId" parameterType="string" resultType="int">
+		select
+			count(*)
+		from
+			cn_notebook
+		where
+			cn_notebook_id = #{notebookId}
+	</select>
 </mapper>

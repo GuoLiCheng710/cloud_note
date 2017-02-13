@@ -6,14 +6,17 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
 import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.zrar.note.dao.NoteDao;
 import com.zrar.note.dao.NotebookDao;
 import com.zrar.note.dao.UserDao;
+import com.zrar.note.entity.Note;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
 import com.zrar.note.util.Util;
@@ -90,8 +93,23 @@ public class MybatisTest {
     	System.err.println(c);
     }
     
+    @Test
+    public void testFindNotesByNotebookId(){
+    	String notebookId = "1d46f5db-f569-4c05-bdba-75106108fcba";
+    	NoteDao dao = ctx.getBean("noteDao",NoteDao.class);
+    	List<Map<String, Object>> list = dao.findNotesByNotebookId(notebookId);
+    	for(Map<String, Object> map : list){
+    		System.out.println(map);
+    	}
+    }
     
-    
+    @Test
+    public void testGetNoteByNoteId(){
+    	String noteId = "60480071-f989-4945-9b1c-0d2aba07ae96";
+    	NoteDao dao = ctx.getBean("noteDao",NoteDao.class);
+    	Map<String,Object> map = dao.getNoteByNoteId(noteId);
+    	System.out.println(map);
+    }
     
     
 }

@@ -5,4 +5,6 @@ import java.util.Map;
 
 public interface NotebookDao {
 	  List<Map<String, Object>> findNotebooksByUserId(String userId);
+	  
+	  int findNotebookByNotebookId(String notebookId);
 }
