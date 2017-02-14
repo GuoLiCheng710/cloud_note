@@ -14,6 +14,7 @@
 	
 	<select id="getNoteByNoteId" parameterType="string" resultType="map">
 		select
+			cn_note_id as 'id',
 			cn_note_title as title,
 			cn_note_body as body
 		from
@@ -30,4 +31,37 @@
 		where
 			cn_note_id = #{noteId}
 	</select>
+	
+	<update id="updateNote" parameterType="map">
+		update
+			cn_note
+		<set>
+			<trim suffixOverrides=",">
+				<if test="notebookId != null">
+					cn_notebook_id = #{notebookId},
+				</if>
+				<if test="userId != null">
+					cn_user_id = #{userId},
+				</if>
+				<if test="noteStatusId != null">
+					cn_note_status_id = #{noteStatusId},
+				</if>
+				<if test="noteTitle != null">
+					cn_note_title = #{noteTitle},
+				</if>
+				<if test="noteBody != null">
+					cn_note_body = #{noteBody},
+				</if>
+				<if test="createTime != null">
+					cn_note_create_time = #{createTime},
+				</if>
+				<if test="lastModifyTime != null">
+					cn_note_last_modify_time = #{lastModifyTime}
+				</if>
+			</trim>
+		</set>
+		<where>
+			cn_note_id = #{noteId}
+		</where>
+	</update>
 </mapper>

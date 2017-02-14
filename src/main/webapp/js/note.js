@@ -18,7 +18,9 @@ function showNotesAction(){
 }
 //更新笔记试图
 model.updateNoteView = function(notes){
-	this.notes = notes;
+	if(notes){
+		this.notes = notes;
+	}
 	var ul = $('#note').empty();
 	var template = '<li class="online">'+
 						'<a>'+
@@ -36,9 +38,12 @@ model.updateNoteView = function(notes){
 					'</li>';
 	//遍历笔记集合，
 	for(var i=0;i<this.notes.length;i++){
-		var note = notes[i];
+		var note = this.notes[i];
 		var li = $(template.replace('note.title',note.title));
 		li.data('index',i);
+		if(model.noteIndex==i){
+		    li.find('a').addClass('checked');
+		}
 		ul.append(li);
 	}
 }
@@ -46,6 +51,8 @@ model.updateNoteView = function(notes){
 function showNoteBodyAction(){
 	//获取点击的笔记序号
 	var index = $(this).data('index');
+	//记录当前笔记的序号
+	model.noteIndex = index;
 	var noteId = model.notes[index].id;
 	$(this).siblings().find('a').removeClass('checked');
 	$(this).find('a').addClass('checked');
@@ -61,7 +68,41 @@ model.updateBodyView = function(note){
 	this.note = note;
 	$('#input_note_title').empty().val(this.note.title);
 	um.setContent(this.note.body);
-
 }
-
+//点击保存按钮，保存修改过后的笔记
+function saveNoteAction(){
+	var note = model.note;
+	
+	var noteId = model.notes[model.noteIndex].id;
+	var noteTitle = $('#input_note_title').val();
+	var noteBody = um.getContent();
+	if(noteTitle==note.title && noteBody==note.body){
+		return;
+	}
+	var url = 'note/save.do';
+	var param = {'noteId':noteId,'noteTitle':noteTitle,'noteBody':noteBody};
+	$('#save_note').attr('disabled','disabled').html('保存中')
+	$.post(url,param,function(result){
+		setTimeout(function(){
+			$('#save_note').removeAttr('disabled').html('保存笔记');
+			if(result.state == SUCCESS){
+				//model.note.title = noteTitle;
+				//model.note.body = noteBody;
+				model.notes[model.noteIndex].title = noteTitle;
+				model.updateNoteView();
+			}else{
+				alert(result.message);
+			}
+		},2000);
+	});
+}
+/**
+ * 笔记保存方法有点小绕，这里的处理方法是，保存成功后，修改model.note里的title、body，
+ * 以及对应model.notes里面的note的title，用于在更新笔记列表时使用。
+ * model.updateNoteView()是用于显示笔记列表的，用到了参数model.notes，
+ * 这时notes里面的title已经更新，再次遍历时是一个新的啦
+ * 
+ * 在showNoteBodyAction里面记录当前打开的笔记的序号  model.noteIndex = index ，
+ * 用于在修改notes里面对应note的title时获取到note，以及更新视图时控制选中效果
+ */
 

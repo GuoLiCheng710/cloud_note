@@ -3,6 +3,7 @@ package com.zrar.test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +111,21 @@ public class MybatisTest {
     	Map<String,Object> map = dao.getNoteByNoteId(noteId);
     	System.out.println(map);
     }
+    
+    @Test
+    public void saveNote(){
+    	String noteId = "003ec2a1-f975-4322-8e4d-dfd206d6ac0c";
+    	NoteDao noteDao = ctx.getBean("noteDao",NoteDao.class);
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("noteId", noteId);
+    	map.put("noteTitle", "我爱java");
+    	map.put("noteBody", "我特别喜欢java，喜欢到不可自拔");
+    	noteDao.updateNote(map);
+    	noteDao.findNoteByNoteId(noteId);
+    }
+    
+    
+    
     
     
 }

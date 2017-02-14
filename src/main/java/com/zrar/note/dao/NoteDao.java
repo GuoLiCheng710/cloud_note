@@ -9,4 +9,6 @@ public interface NoteDao {
 	Map<String, Object> getNoteByNoteId(String noteId);
 	
 	int findNoteByNoteId(String noteId);
+	
+	int updateNote(Map<String, Object> map);
 }

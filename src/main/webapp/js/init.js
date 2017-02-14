@@ -11,4 +11,6 @@ $(function(){
 	$('#notebook').on('click','li',showNotesAction);
 	//点击笔记本后，加载笔记内容
 	$('#note').on('click','li',showNoteBodyAction);
+	//点击保存笔记按钮后,保存修改内容
+	$('#save_note').click(saveNoteAction);
 });

@@ -33,6 +33,16 @@ public class NoteController extends AbstractController {
 		Map<String, Object> map = noteService.showNote(noteId);
 		return new JsonResult(map);
 	}
+	@RequestMapping("/save.do")
+	@ResponseBody
+	public JsonResult saveNote(String noteId,String noteTitle,String noteBody){
+		boolean b = noteService.saveNote(noteId, noteTitle, noteBody);
+		return new JsonResult(b);
+	}
+	
+	
+	
+	
 	@ExceptionHandler(NotFoundNotebookException.class)
 	@ResponseBody
 	public Object Exp(NotFoundNotebookException e){
