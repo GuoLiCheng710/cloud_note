@@ -1,7 +1,12 @@
 //显示笔记列表
 function showNotesAction(){
+	//获取点击的笔记本序号
 	var index = $(this).data('index');
 	var notebookId = model.notebooks[index].id;
+	//清除上一次被选中笔记本的样式
+	$(this).siblings().find('a').removeClass('checked');
+	//为本次点击的笔记本添加样式
+	$(this).find('a').addClass('checked');
 	var url = 'note/list.do';
 	var param = {'notebookId':notebookId};
 	$.getJSON(url,param,function(result){
@@ -39,8 +44,11 @@ model.updateNoteView = function(notes){
 }
 //显示笔记内容
 function showNoteBodyAction(){
+	//获取点击的笔记序号
 	var index = $(this).data('index');
 	var noteId = model.notes[index].id;
+	$(this).siblings().find('a').removeClass('checked');
+	$(this).find('a').addClass('checked');
 	var url = 'note/body.do';
 	var param = {'noteId':noteId};
 	$.getJSON(url,param,function(result){
