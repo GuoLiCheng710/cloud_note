@@ -18,6 +18,7 @@ import com.zrar.note.dao.NoteDao;
 import com.zrar.note.dao.NotebookDao;
 import com.zrar.note.dao.UserDao;
 import com.zrar.note.entity.Note;
+import com.zrar.note.entity.Notebook;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
 import com.zrar.note.util.Util;
@@ -124,7 +125,16 @@ public class MybatisTest {
     	noteDao.findNoteByNoteId(noteId);
     }
     
-    
+    @Test
+    public void testAddNotebook(){
+    	NotebookDao dao = ctx.getBean("notebookDao",NotebookDao.class);
+    	Notebook notebook = new Notebook();
+    	notebook.setId("1");
+    	notebook.setUserId("123");
+    	notebook.setName("test");
+    	int i = dao.insertNotebook(notebook);
+    	System.out.println(i);
+    }
     
     
     

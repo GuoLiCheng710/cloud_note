@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zrar.note.entity.Notebook;
 import com.zrar.note.exception.NameException;
 import com.zrar.note.exception.NotFoundUserException;
 import com.zrar.note.service.NotebookService;
@@ -22,13 +23,18 @@ public class NotebookController extends AbstractController {
 	@Resource
 	private NotebookService notebookService;
 	
-	@RequestMapping("list.do")
+	@RequestMapping("/list.do")
 	@ResponseBody
 	public JsonResult listNotebook(String userId){
 		List<Map<String, Object>> list = notebookService.listNotebook(userId);
 		return new JsonResult(list);
 	}
-	
+	@RequestMapping("/add.do")
+	@ResponseBody
+	public JsonResult addNotebook(String userId,String name){
+		Notebook notebook = notebookService.addNotebook(userId, name);
+		return new JsonResult(notebook);
+	}
 	@ExceptionHandler(NotFoundUserException.class)
 	@ResponseBody
 	public Object Exp(NotFoundUserException e){

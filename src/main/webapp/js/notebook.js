@@ -12,8 +12,10 @@ function showNotebooksAction(){
 
 //模型中的更新视图方法, 当收到笔记本数据时候更新界面的显示内容
 model.updateNotebookView= function(notebooks){
-	//this就是当前对象，就是model
-	this.notebooks = notebooks;
+	if(notebooks){
+		//this就是当前对象，就是model
+		this.notebooks = notebooks;
+	}
 	var ul = $('#notebook').empty();
 	var template = '<li class="online">'+
 						'<a><i class="fa fa-book" title="online" rel="tooltip-bottom"/>'+
@@ -27,3 +29,25 @@ model.updateNotebookView= function(notebooks){
 		ul.append(li);
 	}
 }
+//添加笔记本操作
+function addNotebookAction(){
+	var name = $('#input_notebook').val();
+	//当未输入笔记本名称时,默认赋值为‘新建笔记本’
+	if(name == ''){
+		name = '新建笔记本';
+	}
+	var url = 'notebook/add.do';
+	var param = {'userId':getCookie('userId'),'name':name};
+	$.post(url,param,function(result){
+		var notebook = result.data;
+		model.notebooks.unshift({'id':notebook.id,'name':notebook.name});
+		model.updateNotebookView();
+		console.log(notebook);
+	});
+	
+}
+
+
+
+
+	

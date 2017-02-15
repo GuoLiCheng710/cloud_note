@@ -80,7 +80,7 @@ function saveNoteAction(){
 		return;
 	}
 	var url = 'note/save.do';
-	var param = {'noteId':noteId,'noteTitle':noteTitle,'noteBody':noteBody};
+	var param = {'noteId':'','noteTitle':noteTitle,'noteBody':noteBody};
 	$('#save_note').attr('disabled','disabled').html('保存中')
 	$.post(url,param,function(result){
 		setTimeout(function(){

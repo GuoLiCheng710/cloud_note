@@ -5,12 +5,29 @@ var ERROR=1;
 var model={};
 
 $(function(){
-	//加载笔记本方法
+	//加载笔记本方法(notebook.js)
 	showNotebooksAction();
-	//点击笔记本后，加载笔记本下的笔记
+	//点击笔记本后，加载笔记本下的笔记(note.js)
 	$('#notebook').on('click','li',showNotesAction);
-	//点击笔记本后，加载笔记内容
+	//点击笔记本后，加载笔记内容(note.js)
 	$('#note').on('click','li',showNoteBodyAction);
-	//点击保存笔记按钮后,保存修改内容
+	//点击保存笔记按钮后,保存修改内容(note.js)
 	$('#save_note').click(saveNoteAction);
+	//监听关闭窗口事件
+	$('#can').on('click','.close,.cancel',closeAction)
+	//点击添加笔记本按钮操作
+	$('#add_notebook').click(showNotebookDialogAction);
 });
+//监听关闭窗口事件
+function closeAction(){
+	$('#can').empty();
+	$('.opacity_bg').hide();
+}
+//点击添加笔记本按钮操作
+function showNotebookDialogAction(){
+	$('#can').load('./alert/alert_notebook.html',function(){
+		$('.opacity_bg').show();
+		//点击创建按钮操作(notebook.js)
+		$('.sure').click(addNotebookAction);
+	});
+}
