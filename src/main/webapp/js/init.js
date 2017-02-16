@@ -17,11 +17,21 @@ $(function(){
 	$('#can').on('click','.close,.cancel',closeAction)
 	//点击添加笔记本按钮操作
 	$('#add_notebook').click(showNotebookDialogAction);
+	//点击添加笔记按钮操作
+	$('#add_note').click(showNoteDialogAction);
 });
-//监听关闭窗口事件
-function closeAction(){
-	$('#can').empty();
-	$('.opacity_bg').hide();
+//点击添加笔记按钮操作
+function showNoteDialogAction(){
+	var notebookIndex = model.notebookIndex;
+	if(!model.notebooks[notebookIndex]){
+		alert('未选择笔记本呢！');
+		return;
+	}
+	$('#can').load('./alert/alert_note.html',function(){
+		$('.opacity_bg').show();
+		//点击创建按钮操作(note.js)
+		$('.sure').click(addNoteAction);
+	});
 }
 //点击添加笔记本按钮操作
 function showNotebookDialogAction(){
@@ -30,4 +40,9 @@ function showNotebookDialogAction(){
 		//点击创建按钮操作(notebook.js)
 		$('.sure').click(addNotebookAction);
 	});
+}
+//监听关闭窗口事件
+function closeAction(){
+	$('#can').empty();
+	$('.opacity_bg').hide();
 }

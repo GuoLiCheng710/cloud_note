@@ -2,6 +2,7 @@
 function showNotesAction(){
 	//获取点击的笔记本序号
 	var index = $(this).data('index');
+	model.notebookIndex = index;
 	var notebookId = model.notebooks[index].id;
 	//清除上一次被选中笔记本的样式
 	$(this).siblings().find('a').removeClass('checked');
@@ -94,6 +95,29 @@ function saveNoteAction(){
 				alert(result.message);
 			}
 		},2000);
+	});
+}
+//创建笔记界面，点击创建按钮后操作
+function addNoteAction(){
+	var notebookId = model.notebooks[model.notebookIndex].id;
+	var userId = getCookie('userId');
+	var title = $('#input_note').val();
+	if(title == null){
+		title = '新建笔记';
+	}
+	var url = 'note/add.do';
+	var param = {'notebookId':notebookId,'userId':userId,'title':title};
+	$('.sure').attr('disabled','disabled').html('创建中');
+	$.post(url,param,function(result){
+		setTimeout(function(){
+			if(result.state == SUCCESS){
+				var note = result.data;
+				model.notes.unshift({'id':note.id,'title':note.title});
+				model.updateNoteView();
+			} else {
+				
+			}
+		}, 1000);
 	});
 }
 /**

@@ -50,7 +50,7 @@ public class NotebookServiceImpl implements NotebookService {
 		Notebook notebook = new Notebook();
 		notebook.setId(UUID.randomUUID().toString());
 		notebook.setUserId(userId);
-		notebook.setTypeId(Constant.NOTEBOOK_TYPE_ID_5);
+		notebook.setTypeId(Constant.NOTEBOOK_TYPE_ID_1);
 		notebook.setName(name);
 		notebook.setDesc("");
 		notebook.setCreateTime(new Date());

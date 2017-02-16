@@ -38,13 +38,24 @@ function addNotebookAction(){
 	}
 	var url = 'notebook/add.do';
 	var param = {'userId':getCookie('userId'),'name':name};
+	$('.sure').attr('disabled','disabled').html('创建中');
 	$.post(url,param,function(result){
-		var notebook = result.data;
-		model.notebooks.unshift({'id':notebook.id,'name':notebook.name});
-		model.updateNotebookView();
-		console.log(notebook);
+		setTimeout(function(){
+			if(result.state == SUCCESS){
+				$('#can').empty();
+				$('.opacity_bg').hide();
+				var notebook = result.data;
+				model.notebooks.unshift({'id':notebook.id,'name':notebook.name});
+				model.updateNotebookView();
+			} else {
+				$('#can').empty();
+				$('.opacity_bg').hide();
+				model.updateNotebookView();
+				alert('创建笔记本失败啦！');
+			}
+		}, 1000);
+		
 	});
-	
 }
 
 
