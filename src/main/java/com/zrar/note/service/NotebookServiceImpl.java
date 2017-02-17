@@ -44,7 +44,7 @@ public class NotebookServiceImpl implements NotebookService {
 		if(isExist == 0){
 			throw new NotFoundUserException("用户不存在");
 		}
-		if(name == null){
+		if(name == null || name.trim().isEmpty()){
 			name = "新建笔记本";
 		}
 		Notebook notebook = new Notebook();

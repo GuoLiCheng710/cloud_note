@@ -29,7 +29,7 @@ model.updateNoteView = function(notes){
 							'note.title<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down">'+
 							'<i class="fa fa-chevron-down"></i></button>'+
 						'</a>'+
-						'<div class="note_menu" tabindex="-1">'+
+						'<div class="note_menu" tabindex="-1" style="display:none;">'+
 							'<dl>'+
 								'<dt><button type="button" class="btn btn-default btn-xs btn_move" title="移动至..."><i class="fa fa-random"></i></button></dt>'+
 								'<dt><button type="button" class="btn btn-default btn-xs btn_share" title="分享"><i class="fa fa-sitemap"></i></button></dt>'+
@@ -99,28 +99,54 @@ function saveNoteAction(){
 }
 //创建笔记界面，点击创建按钮后操作
 function addNoteAction(){
+	debugger;
 	var notebookId = model.notebooks[model.notebookIndex].id;
 	var userId = getCookie('userId');
 	var title = $('#input_note').val();
-	if(title == null){
+	if(title == ''){
 		title = '新建笔记';
 	}
 	var url = 'note/add.do';
 	var param = {'notebookId':notebookId,'userId':userId,'title':title};
 	$('.sure').attr('disabled','disabled').html('创建中');
 	$.post(url,param,function(result){
+		debugger;
 		setTimeout(function(){
 			if(result.state == SUCCESS){
+				$('#can').empty();
+				$('.opacity_bg').hide();
 				var note = result.data;
 				model.notes.unshift({'id':note.id,'title':note.title});
 				model.updateNoteView();
 			} else {
-				
+				alert(result.message);
 			}
 		}, 1000);
 	});
 }
+//显示笔记子菜单操作
+function showNoteMenuAction(){
+	
+	$(this).parent().next().toggle();
+	return false;
+}
+//隐藏笔记子菜单操作
+function hideNoteMenuAction(){
+	$('#note .note_menu').hide();
+}
+//点击笔记子菜单删除按钮操作
+function showDeleteNoteDialogAction(){
+	$('#can').load('./alert/alert_delete_note.html',function(){
+		$('.opacity_bg').show();
+		$('.sure').click(deleteNoteAction);
+	});
+}
+//点击确定删除按钮
+function deleteNoteAction(){
+	alert('进来啦');
+}
 /**
+ * 2017/2/15
  * 笔记保存方法有点小绕，这里的处理方法是，保存成功后，修改model.note里的title、body，
  * 以及对应model.notes里面的note的title，用于在更新笔记列表时使用。
  * model.updateNoteView()是用于显示笔记列表的，用到了参数model.notes，

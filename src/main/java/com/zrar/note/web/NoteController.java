@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zrar.note.entity.Note;
 import com.zrar.note.exception.NotFoundNoteException;
 import com.zrar.note.exception.NotFoundNotebookException;
 import com.zrar.note.service.NoteService;
@@ -39,7 +40,12 @@ public class NoteController extends AbstractController {
 		boolean b = noteService.saveNote(noteId, noteTitle, noteBody);
 		return new JsonResult(b);
 	}
-	
+	@RequestMapping("/add.do")
+	@ResponseBody
+	public JsonResult addNote(String notebookId, String userId, String title){
+		Note note = noteService.addNote(notebookId, userId, title);
+		return new JsonResult(note);
+	}
 	
 	
 	

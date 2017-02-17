@@ -10,22 +10,22 @@ public class Note implements Serializable{
 	private String userId;
 	private String statusId;
 	private String typeId;
-	private String noteTitle;
-	private String noteBody;
+	private String title;
+	private String body;
 	private Long createTime;
 	private Long lastModifyTime;
 	public Note() {
 		
 	}
-	public Note(String id, String notebookId, String userId, String statusId, String typeId, String noteTitle,
-			String noteBody, Long createTime, Long lastModifyTime) {
+	public Note(String id, String notebookId, String userId, String statusId, String typeId, String title,
+			String body, Long createTime, Long lastModifyTime) {
 		this.id = id;
 		this.notebookId = notebookId;
 		this.userId = userId;
 		this.statusId = statusId;
 		this.typeId = typeId;
-		this.noteTitle = noteTitle;
-		this.noteBody = noteBody;
+		this.title = title;
+		this.body = body;
 		this.createTime = createTime;
 		this.lastModifyTime = lastModifyTime;
 	}
@@ -59,17 +59,17 @@ public class Note implements Serializable{
 	public void setTypeId(String typeId) {
 		this.typeId = typeId;
 	}
-	public String getNoteTitle() {
-		return noteTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setNoteTitle(String noteTitle) {
-		this.noteTitle = noteTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getNoteBody() {
-		return noteBody;
+	public String getBody() {
+		return body;
 	}
-	public void setNoteBody(String noteBody) {
-		this.noteBody = noteBody;
+	public void setBody(String body) {
+		this.body = body;
 	}
 	public Long getCreateTime() {
 		return createTime;
@@ -109,7 +109,7 @@ public class Note implements Serializable{
 	@Override
 	public String toString() {
 		return "Note [id=" + id + ", notebookId=" + notebookId + ", userId=" + userId + ", statusId=" + statusId
-				+ ", typeId=" + typeId + ", noteTitle=" + noteTitle + ", noteBody=" + noteBody + ", createTime="
+				+ ", typeId=" + typeId + ", title=" + title + ", body=" + body + ", createTime="
 				+ createTime + ", lastModifyTime=" + lastModifyTime + "]";
 	}
 	

@@ -19,7 +19,15 @@ $(function(){
 	$('#add_notebook').click(showNotebookDialogAction);
 	//点击添加笔记按钮操作
 	$('#add_note').click(showNoteDialogAction);
+	//显示笔记子菜单--->以及隐藏(note.js)
+	$('#note').on('click','.btn_slide_down',showNoteMenuAction);
+	//隐藏笔记子菜单操作
+	$('body').click(hideNoteMenuAction);
+	//监听点击笔记子菜单中的删除按钮
+	$('#note').on('click','.btn_delete',showDeleteNoteDialogAction);
 });
+
+
 //点击添加笔记按钮操作
 function showNoteDialogAction(){
 	var notebookIndex = model.notebookIndex;
