@@ -10,6 +10,8 @@
 			cn_note
 		where
 			cn_notebook_id=#{notebookId}
+			and
+			cn_note_status_id= '1'
 	</select>
 	
 	<select id="getNoteByNoteId" parameterType="string" resultType="map">
@@ -87,4 +89,5 @@
 			#{lastModifyTime}
 		)
 	</insert>
+	
 </mapper>

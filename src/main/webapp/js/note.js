@@ -26,10 +26,10 @@ model.updateNoteView = function(notes){
 	var template = '<li class="online">'+
 						'<a>'+
 							'<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+
-							'note.title<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down">'+
+							'note.title<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down" style="display:none;">'+
 							'<i class="fa fa-chevron-down"></i></button>'+
 						'</a>'+
-						'<div class="note_menu" tabindex="-1" style="display:none;">'+
+						'<div class="note_menu" tabindex="-1">'+
 							'<dl>'+
 								'<dt><button type="button" class="btn btn-default btn-xs btn_move" title="移动至..."><i class="fa fa-random"></i></button></dt>'+
 								'<dt><button type="button" class="btn btn-default btn-xs btn_share" title="分享"><i class="fa fa-sitemap"></i></button></dt>'+
@@ -50,6 +50,9 @@ model.updateNoteView = function(notes){
 }
 //显示笔记内容
 function showNoteBodyAction(){
+	//点击笔记后，先把其他笔记的子菜单隐藏，然后显示选中笔记的子菜单
+	$('.btn_slide_down').hide();
+	$(this).find('.btn_slide_down').show();
 	//获取点击的笔记序号
 	var index = $(this).data('index');
 	//记录当前笔记的序号
@@ -81,7 +84,7 @@ function saveNoteAction(){
 		return;
 	}
 	var url = 'note/save.do';
-	var param = {'noteId':'','noteTitle':noteTitle,'noteBody':noteBody};
+	var param = {'noteId':noteId,'noteTitle':noteTitle,'noteBody':noteBody};
 	$('#save_note').attr('disabled','disabled').html('保存中')
 	$.post(url,param,function(result){
 		setTimeout(function(){
@@ -94,12 +97,11 @@ function saveNoteAction(){
 			}else{
 				alert(result.message);
 			}
-		},2000);
+		},800);
 	});
 }
 //创建笔记界面，点击创建按钮后操作
 function addNoteAction(){
-	debugger;
 	var notebookId = model.notebooks[model.notebookIndex].id;
 	var userId = getCookie('userId');
 	var title = $('#input_note').val();
@@ -110,7 +112,6 @@ function addNoteAction(){
 	var param = {'notebookId':notebookId,'userId':userId,'title':title};
 	$('.sure').attr('disabled','disabled').html('创建中');
 	$.post(url,param,function(result){
-		debugger;
 		setTimeout(function(){
 			if(result.state == SUCCESS){
 				$('#can').empty();
@@ -121,12 +122,11 @@ function addNoteAction(){
 			} else {
 				alert(result.message);
 			}
-		}, 1000);
+		}, 400);
 	});
 }
 //显示笔记子菜单操作
 function showNoteMenuAction(){
-	
 	$(this).parent().next().toggle();
 	return false;
 }
@@ -143,7 +143,19 @@ function showDeleteNoteDialogAction(){
 }
 //点击确定删除按钮
 function deleteNoteAction(){
-	alert('进来啦');
+	var noteId = model.notes[model.noteIndex].id;
+	var url = 'note/delete.do';
+	var param = {'noteId':noteId};
+	$.post(url,param,function(result){
+		if(result.state == SUCCESS){
+			$('#can').empty();
+			$('.opacity_bg').hide();
+			model.notes.splice(model.noteIndex,1);
+			model.updateNoteView();
+		} else {
+			alert(result.message)
+		}
+	});
 }
 /**
  * 2017/2/15

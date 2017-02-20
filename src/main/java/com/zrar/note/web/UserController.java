@@ -1,16 +1,14 @@
 package com.zrar.note.web;
 
-import java.util.UUID;
-
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zrar.note.dao.UserDao;
 import com.zrar.note.entity.User;
 import com.zrar.note.exception.NameException;
 import com.zrar.note.exception.PasswordException;
@@ -26,8 +24,11 @@ public class UserController extends AbstractController {
 	
 	@ResponseBody
 	@RequestMapping("/login.do")
-	public Object login(String name,String password){
+	public Object login(String name,String password,HttpServletResponse res){
 		try {
+			Cookie cookie = new Cookie("LoginAuthorization","¹§Ï²ÄãµÇÂ½³É¹¦À²£¡");
+			cookie.setPath("/");
+			res.addCookie(cookie);
 			User user = userService.login(name, password);
 			return new JsonResult(user);
 		} catch (NameException e) {

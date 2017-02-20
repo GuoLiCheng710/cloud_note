@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zrar.note.entity.Note;
 import com.zrar.note.exception.NotFoundNoteException;
 import com.zrar.note.exception.NotFoundNotebookException;
+import com.zrar.note.exception.NotFoundUserException;
 import com.zrar.note.service.NoteService;
 import com.zrar.note.util.JsonResult;
 
@@ -46,20 +47,30 @@ public class NoteController extends AbstractController {
 		Note note = noteService.addNote(notebookId, userId, title);
 		return new JsonResult(note);
 	}
-	
+	@RequestMapping("/delete.do")
+	@ResponseBody
+	public JsonResult deleteNote(String noteId){
+		boolean b = noteService.deleteNoteToRecycle(noteId);
+		return new JsonResult(b);
+	}
 	
 	
 	@ExceptionHandler(NotFoundNotebookException.class)
 	@ResponseBody
-	public Object Exp(NotFoundNotebookException e){
+	public Object notebookExp(NotFoundNotebookException e){
 		e.printStackTrace();
 		return new JsonResult(e);
 	}
 	@ExceptionHandler(NotFoundNoteException.class)
 	@ResponseBody
-	public Object Exp(NotFoundNoteException e){
+	public Object noteExp(NotFoundNoteException e){
 		e.printStackTrace();
 		return new JsonResult(e);
 	}
-
+	@ExceptionHandler(NotFoundUserException.class)
+	@ResponseBody
+	public Object userExp(NotFoundUserException e){
+		e.printStackTrace();
+		return new JsonResult(e);
+	}
 }

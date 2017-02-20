@@ -39,4 +39,13 @@
 	    <filter-name>CharacterEncodingFilter</filter-name>
 	    <servlet-name>DispatcherServlet</servlet-name>
 	</filter-mapping>
+	<filter>
+		<filter-name>access</filter-name>
+		<filter-class>com.zrar.note.web.AccessFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>access</filter-name>
+		<url-pattern>/edit.html</url-pattern>
+	</filter-mapping>	
+	
 </web-app>

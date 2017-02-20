@@ -15,4 +15,6 @@ public interface NoteDao {
 	int updateNote(Map<String, Object> map);
 	
 	int insertNote(Note note);
+	
+	int deleteNoteCompletely(String noteId);
 }

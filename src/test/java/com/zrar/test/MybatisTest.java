@@ -97,7 +97,7 @@ public class MybatisTest {
     
     @Test
     public void testFindNotesByNotebookId(){
-    	String notebookId = "1d46f5db-f569-4c05-bdba-75106108fcba";
+    	String notebookId = "01e24d89-15ab-4b6a-bf6f-2e5ad10b2041";
     	NoteDao dao = ctx.getBean("noteDao",NoteDao.class);
     	List<Map<String, Object>> list = dao.findNotesByNotebookId(notebookId);
     	for(Map<String, Object> map : list){

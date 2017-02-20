@@ -107,7 +107,7 @@ public class NoteServiceImpl implements NoteService {
 		note.setId(UUID.randomUUID().toString());
 		note.setNotebookId(notebookId);
 		note.setUserId(userId);
-		note.setStatusId(Constant.NOTE_TYPE_ID_5);
+		note.setStatusId(Constant.NOTE_STATUS_ID_1);
 		note.setTypeId("1");
 		note.setTitle(title);
 		note.setBody("");
@@ -118,6 +118,20 @@ public class NoteServiceImpl implements NoteService {
 			throw new NotFoundNotebookException("笔记本创建失败！");
 		}
 		return note;
+	}
+	public boolean deleteNoteToRecycle(String noteId) throws NotFoundNoteException {
+		if(noteId == null || noteId.trim().isEmpty()){
+			throw new NotFoundNoteException("noteId 不能为空");
+		}
+		int isExist = noteDao.findNoteByNoteId(noteId);
+		if(isExist != 1){
+			throw new NotFoundNoteException("笔记不存在");
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noteId", noteId);
+		map.put("noteStatusId", Constant.NOTE_STATUS_ID_2);
+		int i = noteDao.updateNote(map);
+		return i == 1;
 	}
 }
 
