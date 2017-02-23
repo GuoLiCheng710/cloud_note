@@ -46,6 +46,10 @@
 	<filter-mapping>
 		<filter-name>access</filter-name>
 		<url-pattern>/edit.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>access</filter-name>
+		<url-pattern>/change_password.html</url-pattern>
 	</filter-mapping>	
 	
 </web-app>

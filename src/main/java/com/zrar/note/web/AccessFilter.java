@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AccessFilter implements Filter {
 
@@ -22,21 +23,28 @@ public class AccessFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
-		Cookie[] cookies = request.getCookies();
-		String token = null;
-		if(cookies != null){
-			for(Cookie c: cookies){
-                if("LoginAuthorization".equals(c.getName())){
-                    token=c.getValue();
-                    break;
-                }
-            }
-		}
-		if(token==null){
-            //重定向到登陆页面
-            response.sendRedirect("log_in.html");
+		HttpSession session = request.getSession();
+		String str = (String)session.getAttribute("LoginAuthorization");
+		System.out.println("session:"+str);
+		if(!"LonginSuccessful".equals(str)){
+			response.sendRedirect("log_in.html");
             return;
-        }
+		}
+//		Cookie[] cookies = request.getCookies();
+//		String token = null;
+//		if(cookies != null){
+//			for(Cookie c: cookies){
+//                if("LoginAuthorization".equals(c.getName())){
+//                    token=c.getValue();
+//                    break;
+//                }
+//            }
+//		}
+//		if(token==null){
+//            //重定向到登陆页面
+//            response.sendRedirect("log_in.html");
+//            return;
+//        }
         //执行后续的请求, 也就是执行 edit.html
         chain.doFilter(req, res);
 

@@ -8,4 +8,8 @@ public interface UserDao {
 	User findUserByName(String name);
 	
 	int findUserByUserId(String userId);
+	
+	User selectUserById(String userId);
+	
+	int updatePassword(User user);
 }
