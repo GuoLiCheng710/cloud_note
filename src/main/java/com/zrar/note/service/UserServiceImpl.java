@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.zrar.note.dao.UserDao;

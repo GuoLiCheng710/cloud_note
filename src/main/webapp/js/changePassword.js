@@ -34,6 +34,7 @@ function changePassword(){
 //				alert('密码修改成功！');
 //				delCookie('LoginAuthorization');
 //				location.href = 'log_in.html';
+				location.href = 'edit.html';
 				location.reload(true);
 			}
 		} else {

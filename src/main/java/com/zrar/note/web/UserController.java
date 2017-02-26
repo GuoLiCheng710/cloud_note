@@ -1,7 +1,6 @@
 package com.zrar.note.web;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,7 +27,7 @@ public class UserController extends AbstractController {
 	@ResponseBody
 	@RequestMapping("/login.do")
 	public Object login(String name,String password,HttpServletRequest req,HttpServletResponse res){
-		try {
+		//try {
 			HttpSession session = req.getSession();
 			session.setAttribute("LoginAuthorization", "LonginSuccessful");
 //			Cookie cookie = new Cookie("LoginAuthorization","Longin successful");
@@ -36,16 +35,9 @@ public class UserController extends AbstractController {
 //			res.addCookie(cookie);
 			User user = userService.login(name, password);
 			return new JsonResult(user);
-		} catch (NameException e) {
-			e.printStackTrace();
-			return new JsonResult(e);
-		} catch (PasswordException e){
-			e.printStackTrace();
-			return new JsonResult(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new JsonResult(e);
-		}
+//		} catch(NameException e) {
+//			return new JsonResult(2,e);
+//		} 
 	}
 	@ResponseBody
 	@RequestMapping("/regist.do")
@@ -53,12 +45,6 @@ public class UserController extends AbstractController {
 		try {
 			User user = userService.regist(name, nick, password,confirmPassword);
 			return new JsonResult(user);
-		} catch (NameException e) {
-			e.printStackTrace();
-			return new JsonResult(e);
-		} catch (PasswordException e) {
-			e.printStackTrace();
-			return new JsonResult(e);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new JsonResult(e);
@@ -99,12 +85,14 @@ public class UserController extends AbstractController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("LoginAuthorization");
 		session.invalidate();
-//		response.setHeader("cache-control", "no-cache");
-//		response.setHeader("cache-control", "no-store");
-//		response.setDateHeader("expires", 0);
-//		response.setHeader("pragma","no-cache");
+		response.setHeader("cache-control", "no-cache");
+		response.setHeader("cache-control", "no-store");
+		response.setDateHeader("expires", 0);
+		response.setHeader("pragma","no-cache");
 		return new JsonResult(0);
 	}
+	
+	
 	@ExceptionHandler(NotFoundUserException.class)
 	@ResponseBody
 	public Object userExp(NotFoundUserException e){

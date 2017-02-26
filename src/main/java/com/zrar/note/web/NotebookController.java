@@ -41,5 +41,11 @@ public class NotebookController extends AbstractController {
 		e.printStackTrace();
 		return new JsonResult(e);
 	}
+	@ExceptionHandler(NameException.class)
+	@ResponseBody
+	public Object nameExp(NameException e){
+		e.printStackTrace();
+		return new JsonResult(e);
+	}
 
 }

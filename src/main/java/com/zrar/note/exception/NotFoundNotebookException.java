@@ -2,6 +2,8 @@ package com.zrar.note.exception;
 
 public class NotFoundNotebookException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	public NotFoundNotebookException() {
 		// TODO Auto-generated constructor stub
 	}

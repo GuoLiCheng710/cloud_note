@@ -1,6 +1,7 @@
 package com.zrar.note.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,7 +32,10 @@ public class NotebookServiceImpl implements NotebookService {
 		if(isExist == 0){
 			throw new NotFoundUserException("用户不存在");
 		}
-		List<Map<String, Object>> list = notebookDao.findNotebooksByUserId(userId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("statusId", Constant.NOTEBOOK_STATUS_ID_1);
+		List<Map<String, Object>> list = notebookDao.findNotebooksByUserId(map);
 		
 		return list;
 	}

@@ -8,9 +8,6 @@ package com.zrar.note.util;
  */
 import java.io.Serializable;
 
-import com.zrar.note.exception.NameException;
-import com.zrar.note.exception.PasswordException;
-
 public class JsonResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -12,12 +12,13 @@ public class Notebook implements Serializable {
 	private String name;
 	private String desc;
 	private	Date createTime;
+	private String statusId;
 	
 	public Notebook() {
 		
 	}
-	
-	public Notebook(String id, String userId, String typeId, String name, String desc, Date createTime) {
+	public Notebook(String id, String userId, String typeId, String name, String desc, Date createTime,
+			String statusId) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -25,8 +26,8 @@ public class Notebook implements Serializable {
 		this.name = name;
 		this.desc = desc;
 		this.createTime = createTime;
+		this.statusId = statusId;
 	}
-
 	public String getId() {
 		return id;
 	}
@@ -63,7 +64,13 @@ public class Notebook implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
+	
+	public String getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(String statusId) {
+		this.statusId = statusId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

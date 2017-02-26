@@ -25,8 +25,10 @@ $(function(){
 	$('body').click(hideNoteMenuAction);
 	//监听点击笔记子菜单中的删除按钮
 	$('#note').on('click','.btn_delete',showDeleteNoteDialogAction);
+	
+	$('#rollback_button').click(showRecyclingNotesAction);
+	
 });
-
 
 //点击添加笔记按钮操作
 function showNoteDialogAction(){

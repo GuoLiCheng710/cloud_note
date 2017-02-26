@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.zrar.note.dao.NoteDao">
-	<select id="findNotesByNotebookId" parameterType="string" resultType="map">
+	<select id="findNotesByNotebookId" parameterType="map" resultType="map">
 		select
 			cn_note_id as "id",
 			cn_note_title as title
@@ -11,7 +11,7 @@
 		where
 			cn_notebook_id=#{notebookId}
 			and
-			cn_note_status_id= '1'
+			cn_note_status_id= #{statusId}
 	</select>
 	
 	<select id="getNoteByNoteId" parameterType="string" resultType="map">
@@ -89,5 +89,17 @@
 			#{lastModifyTime}
 		)
 	</insert>
+	
+	<select id="findNotesOnRecycle" parameterType="map" resultType="map">
+		select
+			cn_note_id as "id",
+			cn_note_title as title
+		from
+			cn_note
+		where
+			cn_user_id=#{userId}
+			and
+			cn_note_status_id= #{statusId}
+	</select>
 	
 </mapper>

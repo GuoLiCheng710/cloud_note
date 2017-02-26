@@ -21,6 +21,7 @@ import com.zrar.note.entity.Note;
 import com.zrar.note.entity.Notebook;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
+import com.zrar.note.util.Constant;
 import com.zrar.note.util.Util;
 
 public class MybatisTest {
@@ -80,7 +81,10 @@ public class MybatisTest {
     public void testFindNotebooksByUserId(){
     	String userId = "39295a3d-cc9b-42b4-b206-a2e7fab7e77c";
     	NotebookDao dao = ctx.getBean("notebookDao",NotebookDao.class);
-    	List<Map<String, Object>> list = dao.findNotebooksByUserId(userId);
+    	Map<String, Object> map1 = new HashMap<String, Object>();
+    	map1.put("userId", userId);
+    	map1.put("statusId", Constant.NOTEBOOK_STATUS_ID_1);
+    	List<Map<String, Object>> list = dao.findNotebooksByUserId(map1);
     	System.out.println(list);
     	for(Map<String, Object> map : list){
     		System.out.println(map);
@@ -99,10 +103,10 @@ public class MybatisTest {
     public void testFindNotesByNotebookId(){
     	String notebookId = "01e24d89-15ab-4b6a-bf6f-2e5ad10b2041";
     	NoteDao dao = ctx.getBean("noteDao",NoteDao.class);
-    	List<Map<String, Object>> list = dao.findNotesByNotebookId(notebookId);
-    	for(Map<String, Object> map : list){
-    		System.out.println(map);
-    	}
+    	//List<Map<String, Object>> list = dao.findNotesByNotebookId(notebookId);
+//    	for(Map<String, Object> map : list){
+//    		System.out.println(map);
+//    	}
     }
     
     @Test

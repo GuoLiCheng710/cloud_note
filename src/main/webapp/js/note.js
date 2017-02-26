@@ -1,5 +1,9 @@
 //显示笔记列表
 function showNotesAction(){
+	//清空model.noteIndex，以免选择其他笔记本时会默认选择其笔记
+	delete model.noteIndex;
+	$('#pc_part_2').show();
+	$('#pc_part_4').hide();
 	//获取点击的笔记本序号
 	var index = $(this).data('index');
 	model.notebookIndex = index;
@@ -51,7 +55,7 @@ model.updateNoteView = function(notes){
 //显示笔记内容
 function showNoteBodyAction(){
 	//点击笔记后，先把其他笔记的子菜单隐藏，然后显示选中笔记的子菜单
-	$('.btn_slide_down').hide();
+	$('#note .btn_slide_down').hide();
 	$(this).find('.btn_slide_down').show();
 	//获取点击的笔记序号
 	var index = $(this).data('index');
@@ -75,9 +79,16 @@ model.updateBodyView = function(note){
 }
 //点击保存按钮，保存修改过后的笔记
 function saveNoteAction(){
+	var m = model.noteIndex;
+	var reg = /^\d$/;
+	//没选择笔记的情况下，保存笔记不做任何反应
+	if(!reg.exec(m)){
+		return;
+	}
 	var note = model.note;
 	
 	var noteId = model.notes[model.noteIndex].id;
+	
 	var noteTitle = $('#input_note_title').val();
 	var noteBody = um.getContent();
 	if(noteTitle==note.title && noteBody==note.body){
@@ -167,4 +178,38 @@ function deleteNoteAction(){
  * 在showNoteBodyAction里面记录当前打开的笔记的序号  model.noteIndex = index ，
  * 用于在修改notes里面对应note的title时获取到note，以及更新视图时控制选中效果
  */
-
+//回收站笔记显示
+function showRecyclingNotesAction(){
+	$('#pc_part_2').hide();
+	$('#pc_part_4').show();
+	var url = 'note/list/recycle.do';
+	var param = {'userId':getCookie('userId')};
+	$.getJSON(url,param,function(result){
+		if(result.state == SUCCESS){
+			var notes = result.data;
+			model.updateNoteOnRecycleView(notes);
+		}else{
+			alert("哎呦！出错啦！小主您在重来一遍呗！");
+		}
+	});
+}
+model.updateNoteOnRecycleView = function(notes){
+	var ul = $('#note_recycle').empty();
+	var template = '<li class="disable">'+
+						'<a>'+
+							'<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> note.title'+
+							'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button>'+
+							'<button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button>'+
+						'</a>'+
+				   '</li>';
+	
+	this.notesRecycle = notes;
+	for(var i=0;i<this.notesRecycle.length;i++){
+		var note = this.notesRecycle[i];
+		var li = template.replace('note.title',note.title);
+		ul.append(li);
+	}
+	
+	
+	
+}

@@ -19,7 +19,9 @@ model.updateNotebookView= function(notebooks){
 	var ul = $('#notebook').empty();
 	var template = '<li class="online">'+
 						'<a><i class="fa fa-book" title="online" rel="tooltip-bottom"/>'+
-						'</i>notebook.name</a>'+
+						'</i>notebook.name'+
+						'<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down">'+
+						'<i class="fa fa-times"></i></button></a>'+
 				    '</li>';
 	for(var i=0;i<this.notebooks.length;i++){
 		var notebook = this.notebooks[i];

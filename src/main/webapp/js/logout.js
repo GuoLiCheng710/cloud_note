@@ -9,6 +9,8 @@ function logoutAction(){
 		if(result.state == SUCCESS){
 			if(result.data == 0){
 				//location.href = 'log_in.html';
+				//location.reload(true);
+				//location.href = 'edit.html';
 				location.reload(true);
 			}
 		}

@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.zrar.note.dao.NotebookDao">
-	<select id="findNotebooksByUserId" parameterType="string" resultType="map">
+	<select id="findNotebooksByUserId" parameterType="map" resultType="map">
 		select
 			cn_notebook_id as "id",
 			cn_notebook_name as name
 		from
 			cn_notebook
 		where
-			cn_user_id=#{userId}
+			cn_user_id = #{userId}   
+			and
+			cn_notebook_status_id = #{statusId}
 	</select>
 	<select id="findNotebookByNotebookId" parameterType="string" resultType="int">
 		select

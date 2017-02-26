@@ -1,7 +1,6 @@
 package com.zrar.note.entity;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class User implements Serializable{
 

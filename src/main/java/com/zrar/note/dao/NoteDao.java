@@ -6,7 +6,7 @@ import java.util.Map;
 import com.zrar.note.entity.Note;
 
 public interface NoteDao {
-	List<Map<String, Object>> findNotesByNotebookId(String notebookId);
+	List<Map<String, Object>> findNotesByNotebookId(Map<String, Object> map);
 	
 	Map<String, Object> getNoteByNoteId(String noteId);
 	
@@ -16,5 +16,9 @@ public interface NoteDao {
 	
 	int insertNote(Note note);
 	
+	List<Map<String, Object>> findNotesOnRecycle(Map<String, Object> map);
+	
 	int deleteNoteCompletely(String noteId);
+	
+	
 }

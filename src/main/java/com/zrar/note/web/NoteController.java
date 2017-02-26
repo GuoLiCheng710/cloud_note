@@ -53,7 +53,12 @@ public class NoteController extends AbstractController {
 		boolean b = noteService.deleteNoteToRecycle(noteId);
 		return new JsonResult(b);
 	}
-	
+	@RequestMapping("/list/recycle.do")
+	@ResponseBody
+	public Object listNoteOnRecycle(String userId){
+		List<Map<String, Object>> list = noteService.listNoteOnRecycle(userId);
+		return new JsonResult(list);
+	}
 	
 	@ExceptionHandler(NotFoundNotebookException.class)
 	@ResponseBody

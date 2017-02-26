@@ -9,10 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
-import org.hamcrest.core.Is;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.zrar.note.dao.NoteDao;
 import com.zrar.note.dao.NotebookDao;
 import com.zrar.note.dao.UserDao;
@@ -21,7 +19,6 @@ import com.zrar.note.exception.NotFoundNoteException;
 import com.zrar.note.exception.NotFoundNotebookException;
 import com.zrar.note.exception.NotFoundUserException;
 import com.zrar.note.util.Constant;
-import com.zrar.note.util.JsonResult;
 
 @Service("noteService")
 public class NoteServiceImpl implements NoteService {
@@ -40,7 +37,10 @@ public class NoteServiceImpl implements NoteService {
 		if(isExist == 0){
 			throw new NotFoundNotebookException("笔记本不存在");
 		}
-		List<Map<String, Object>> list = noteDao.findNotesByNotebookId(notebookId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("notebookId", notebookId);
+		map.put("statusId", Constant.NOTE_STATUS_ID_1);
+		List<Map<String, Object>> list = noteDao.findNotesByNotebookId(map);
 		return list;
 	}
 	public Map<String, Object> showNote(String noteId) throws NotFoundNoteException {
@@ -132,6 +132,20 @@ public class NoteServiceImpl implements NoteService {
 		map.put("noteStatusId", Constant.NOTE_STATUS_ID_2);
 		int i = noteDao.updateNote(map);
 		return i == 1;
+	}
+	public List<Map<String, Object>> listNoteOnRecycle(String userId) throws NotFoundUserException {
+		if(userId == null || userId.trim().isEmpty()){
+			throw new NotFoundUserException("userId不能为空");
+		}
+		int i = userDao.findUserByUserId(userId);
+		if(i != 1){
+			throw new NotFoundUserException("用户不存在");
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("statusId", Constant.NOTE_STATUS_ID_2);
+		List<Map<String, Object>> list = noteDao.findNotesOnRecycle(map);
+		return list;
 	}
 }
 

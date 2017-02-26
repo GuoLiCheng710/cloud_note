@@ -1,7 +1,5 @@
 package com.zrar.note.util;
 
-import java.lang.Thread.State;
-
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class Util {
