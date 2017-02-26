@@ -55,7 +55,7 @@ public class UserController extends AbstractController {
 	public Object checkName(String name){
 		try {
 			boolean isExist = userService.isUserExistByName(name);
-			return  new JsonResult(isExist);	//true ²»´æÔÚ£»false ÒÑ´æÔÚ
+			return  new JsonResult(isExist);	//true å¯ç”¨ï¼›falseä¸å¯ç”¨
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new JsonResult(e);
@@ -77,7 +77,7 @@ public class UserController extends AbstractController {
 			session.invalidate();
 			
 		}
-		return new JsonResult(isSuccess);	//true ³É¹¦ £»false Ê§°Ü
+		return new JsonResult(isSuccess);	//true ä¿®æ”¹æˆåŠŸï¼›falseä¿®æ”¹å¤±è´¥
 	}
 	@ResponseBody
 	@RequestMapping("/logout.do")

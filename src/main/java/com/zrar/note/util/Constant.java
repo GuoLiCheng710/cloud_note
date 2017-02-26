@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constant {
-	/**± º«¿‡–Õ*/
+	/**Á¨îËÆ∞Áä∂ÊÄÅ*/
 	public static final String NOTE_STATUS_ID_0 = "0";
 	public static final String NOTE_STATUS_ID_1 = "1";
 	public static final String NOTE_STATUS_ID_2 = "2";
@@ -12,12 +12,12 @@ public class Constant {
 	public static final String NOTE_STATUS_ID_4 = "4";
 	public static final String NOTE_STATUS_ID_5 = "5";
 	
-	public static final String NOTE_STATUS_NAME_0 = "…æ≥˝";
-	public static final String NOTE_STATUS_NAME_1 = "’˝≥£";
-	public static final String NOTE_STATUS_NAME_2 = "ªÿ ’’æ";
-	public static final String NOTE_STATUS_NAME_3 = "ªÓ∂Ø";
-	public static final String NOTE_STATUS_NAME_4 = "Õ∆ÀÕ";
-	public static final String NOTE_STATUS_NAME_5 = " ’≤ÿ";
+	public static final String NOTE_STATUS_NAME_0 = "Âà†Èô§";
+	public static final String NOTE_STATUS_NAME_1 = "Ê≠£Â∏∏";
+	public static final String NOTE_STATUS_NAME_2 = "ÂõûÊî∂Á´ô";
+	public static final String NOTE_STATUS_NAME_3 = "Ê¥ªÂä®";
+	public static final String NOTE_STATUS_NAME_4 = "Êé®ÈÄÅ";
+	public static final String NOTE_STATUS_NAME_5 = "Êî∂Ëóè";
 	
 	public static final Map<String, String> NOTE_STATUS_MAP = new HashMap<String, String>();
 	static{
@@ -28,19 +28,19 @@ public class Constant {
 		NOTE_STATUS_MAP.put(NOTE_STATUS_ID_4, NOTE_STATUS_NAME_4);
 		NOTE_STATUS_MAP.put(NOTE_STATUS_ID_5, NOTE_STATUS_NAME_5);
 	}
-	/**± º«¿‡–Õ END*/
+	/**Á¨îËÆ∞Áä∂ÊÄÅ END*/
 	
-	/**± º«±æ¿‡–Õ*/
+	/**Á¨îËÆ∞Êú¨Áä∂ÊÄÅ*/
 	public static final String NOTEBOOK_STATUS_ID_0 = "0";
 	public static final String NOTEBOOK_STATUS_ID_1 = "1";
 	
-	public static final String NOTEBOOK_STATUS_NAME_0 = "…æ≥˝";
-	public static final String NOTEBOOK_STATUS_NAME_1 = "’˝≥£";
+	public static final String NOTEBOOK_STATUS_NAME_0 = "Âà†Èô§";
+	public static final String NOTEBOOK_STATUS_NAME_1 = "Ê≠£Â∏∏";
 	
 	public static final Map<String, String> NOTEBOOK_STATUS_MAP = new HashMap<String, String>();
 	static {
 		NOTEBOOK_STATUS_MAP.put(NOTEBOOK_STATUS_ID_0, NOTEBOOK_STATUS_NAME_0);
 		NOTEBOOK_STATUS_MAP.put(NOTEBOOK_STATUS_ID_1, NOTEBOOK_STATUS_NAME_1);
 	}
-	/**± º«±æ¿‡–ÕEND*/
+	/**Á¨îËÆ∞Êú¨Áä∂ÊÄÅEND*/
 }

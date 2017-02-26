@@ -31,11 +31,11 @@ public class NoteServiceImpl implements NoteService {
 	private UserDao userDao;
 	public List<Map<String, Object>> listNote(String notebookId) throws NotFoundNotebookException {
 		if(notebookId == null || notebookId.trim().isEmpty()){
-			throw new NotFoundNotebookException("notebookId ≤ªƒ‹Œ™ø’");
+			throw new NotFoundNotebookException("notebookId ‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int isExist = notebookDao.findNotebookByNotebookId(notebookId);
 		if(isExist == 0){
-			throw new NotFoundNotebookException("± º«±æ≤ª¥Ê‘⁄");
+			throw new NotFoundNotebookException("Á¨îËÆ∞Êú¨‰∏çÂ≠òÂú®");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("notebookId", notebookId);
@@ -45,22 +45,22 @@ public class NoteServiceImpl implements NoteService {
 	}
 	public Map<String, Object> showNote(String noteId) throws NotFoundNoteException {
 		if(noteId == null || noteId.trim().isEmpty()){
-			throw new NotFoundNoteException("noteId≤ªƒ‹Œ™ø’");
+			throw new NotFoundNoteException("noteId‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int isExist = noteDao.findNoteByNoteId(noteId);
 		if(isExist == 0){
-			throw new NotFoundNoteException("± º«≤ª¥Ê‘⁄");
+			throw new NotFoundNoteException("Á¨îËÆ∞‰∏çÂ≠òÂú®");
 		}
 		Map<String, Object> map = noteDao.getNoteByNoteId(noteId);
 		return map;
 	}
 	public boolean saveNote(String noteId, String noteTitle, String noteBody) throws NotFoundNoteException {
 		if(noteId == null || noteId.trim().isEmpty()){
-			throw new NotFoundNoteException("noteId≤ªƒ‹Œ™ø’");
+			throw new NotFoundNoteException("noteId‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int isExist = noteDao.findNoteByNoteId(noteId);
 		if(isExist == 0){
-			throw new NotFoundNoteException("± º«≤ª¥Ê‘⁄");
+			throw new NotFoundNoteException("Á¨îËÆ∞‰∏çÂ≠òÂú®");
 		}
 		if(noteBody == null){
 			noteBody = "";
@@ -73,7 +73,7 @@ public class NoteServiceImpl implements NoteService {
 				String str = m.group();
 				noteTitle = str.substring(3,str.length()>17?13:str.length()-4).trim();
 			}else{
-				noteTitle = "Œﬁ±ÍÃ‚";
+				noteTitle = "Êñ∞Âª∫Á¨îËÆ∞";
 			}
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -87,21 +87,21 @@ public class NoteServiceImpl implements NoteService {
 	public Note addNote(String notebookId, String userId, String title)
 			throws NotFoundNotebookException, NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId ≤ªƒ‹Œ™ø’");
+			throw new NotFoundUserException("userId ‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int userIsExist = userDao.findUserByUserId(userId);
 		if(userIsExist == 0){
-			throw new NotFoundUserException("”√ªß≤ª¥Ê‘⁄");
+			throw new NotFoundUserException("Áî®Êà∑‰∏çÂ≠òÂú®");
 		}
 		if(notebookId == null || notebookId.trim().isEmpty()){
-			throw new NotFoundNotebookException("notebookId ≤ªƒ‹Œ™ø’");
+			throw new NotFoundNotebookException("notebookId ‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int notebookIsExist = notebookDao.findNotebookByNotebookId(notebookId);
 		if(notebookIsExist == 0){
-			throw new NotFoundNotebookException("± º«±æ≤ª¥Ê‘⁄");
+			throw new NotFoundNotebookException("Á¨îËÆ∞Êú¨‰∏çÂ≠òÂú®");
 		}
 		if(title == null || title.trim().isEmpty()){
-			title = "–¬Ω®± º«";
+			title = "Êñ∞Âª∫Á¨îËÆ∞";
 		}
 		Note note = new Note();
 		note.setId(UUID.randomUUID().toString());
@@ -115,17 +115,17 @@ public class NoteServiceImpl implements NoteService {
 		note.setLastModifyTime(System.currentTimeMillis());
 		int i = noteDao.insertNote(note);
 		if(i != 1){
-			throw new NotFoundNotebookException("± º«±æ¥¥Ω® ß∞‹£°");
+			throw new NotFoundNotebookException("Á¨îËÆ∞ÂàõÂª∫Â§±Ë¥•");
 		}
 		return note;
 	}
 	public boolean deleteNoteToRecycle(String noteId) throws NotFoundNoteException {
 		if(noteId == null || noteId.trim().isEmpty()){
-			throw new NotFoundNoteException("noteId ≤ªƒ‹Œ™ø’");
+			throw new NotFoundNoteException("noteId ‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int isExist = noteDao.findNoteByNoteId(noteId);
 		if(isExist != 1){
-			throw new NotFoundNoteException("± º«≤ª¥Ê‘⁄");
+			throw new NotFoundNoteException("Á¨îËÆ∞‰∏çÂ≠òÂú®");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noteId", noteId);
@@ -135,11 +135,11 @@ public class NoteServiceImpl implements NoteService {
 	}
 	public List<Map<String, Object>> listNoteOnRecycle(String userId) throws NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId≤ªƒ‹Œ™ø’");
+			throw new NotFoundUserException("userId‰∏çËÉΩ‰∏∫Á©∫");
 		}
 		int i = userDao.findUserByUserId(userId);
 		if(i != 1){
-			throw new NotFoundUserException("”√ªß≤ª¥Ê‘⁄");
+			throw new NotFoundUserException("Áî®Êà∑‰∏çÂ≠òÂú®");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);

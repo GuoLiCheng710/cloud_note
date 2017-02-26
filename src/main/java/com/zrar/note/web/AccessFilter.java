@@ -40,11 +40,11 @@ public class AccessFilter implements Filter {
 //            }
 //		}
 //		if(token==null){
-//            //ÖØ¶¨Ïòµ½µÇÂ½Ò³Ãæ
+//            //ä¸ºæˆåŠŸç™»é™†æ—¶ï¼Œè·³è½¬åˆ°ç™»å½•é¡µ
 //            response.sendRedirect("log_in.html");
 //            return;
 //        }
-        //Ö´ĞĞºóĞøµÄÇëÇó, Ò²¾ÍÊÇÖ´ĞĞ edit.html
+        //ç»§ç»­æ‰§è¡Œï¼Œè·³è½¬åˆ°edit.html
         chain.doFilter(req, res);
 
 	}
