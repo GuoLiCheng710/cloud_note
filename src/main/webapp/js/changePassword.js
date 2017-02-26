@@ -4,6 +4,7 @@ $(function(){
 	$('#new_password').blur(checkNewPassword);
 	$('#final_password').blur(checkConfirmPassword);
 	$('#changePassword').click(changePassword);
+	$('#back').click(backToEditAction)
 });
 
 var SUCCESS=0;
@@ -12,7 +13,9 @@ var ERROR=1;
 var a;
 var b;
 var c;
-
+function backToEditAction(){
+	history.go(-1);
+}
 function changePassword(){
 	var d = a;
 	var e = b;

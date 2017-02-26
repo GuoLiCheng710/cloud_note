@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
 import javax.sql.DataSource;
 
 import org.junit.Before;
@@ -17,7 +16,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.zrar.note.dao.NoteDao;
 import com.zrar.note.dao.NotebookDao;
 import com.zrar.note.dao.UserDao;
-import com.zrar.note.entity.Note;
 import com.zrar.note.entity.Notebook;
 import com.zrar.note.entity.User;
 import com.zrar.note.service.UserService;
@@ -46,8 +44,6 @@ public class MybatisTest {
     
     @Test
 	public void testAddUser(){
-	    //mapperÉ¨ÃèÆ÷½«Mapper½Ó¿ÚUserDao´´½¨
-	    //ÎªBean¶ÔÏó
 	    UserDao dao = ctx.getBean("userDao", UserDao.class);
 	    User user = new User("123", "tom", "123", "", "Tom");
 	    dao.addUser(user);
@@ -123,8 +119,8 @@ public class MybatisTest {
     	NoteDao noteDao = ctx.getBean("noteDao",NoteDao.class);
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("noteId", noteId);
-    	map.put("noteTitle", "ÎÒ°®java");
-    	map.put("noteBody", "ÎÒÌØ±ðÏ²»¶java£¬Ï²»¶µ½²»¿É×Ô°Î");
+    	map.put("noteTitle", "ï¿½Ò°ï¿½java");
+    	map.put("noteBody", "ï¿½ï¿½ï¿½Ø±ï¿½Ï²ï¿½ï¿½javaï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½");
     	noteDao.updateNote(map);
     	noteDao.findNoteByNoteId(noteId);
     }

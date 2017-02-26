@@ -2,8 +2,12 @@
 function showNotesAction(){
 	//清空model.noteIndex，以免选择其他笔记本时会默认选择其笔记
 	delete model.noteIndex;
+	//展示全部笔记模块
 	$('#pc_part_2').show();
 	$('#pc_part_4').hide();
+	//
+	$('#notebook .btn_slide_down').hide();
+	$(this).find('.btn_slide_down').show();
 	//获取点击的笔记本序号
 	var index = $(this).data('index');
 	model.notebookIndex = index;
@@ -52,6 +56,32 @@ model.updateNoteView = function(notes){
 		ul.append(li);
 	}
 }
+//预览笔记body
+//function showNoteBodyAction(){
+//	$('#note .btn_slide_down').hide();
+//	$(this).find('.btn_slide_down').show();
+//	//获取点击的笔记序号
+//	var index = $(this).data('index');
+//	//记录当前笔记的序号
+//	model.noteIndex = index;
+//	var noteId = model.notes[index].id;
+//	$(this).siblings().find('a').removeClass('checked');
+//	$(this).find('a').addClass('checked');
+//	var url = 'note/body.do';
+//	var param = {'noteId':noteId};
+//	$.getJSON(url,param,function(result){
+//		if(result.state == SUCCESS){
+//			var note = result.data;
+//			$('#noput_note_title').empty().text(note.title).siblings().remove();
+//			$('#noput_note_title').parent().append(note.body);
+//			
+//		} else{
+//			alert('哎呦！出错啦！');
+//		}
+//	});
+//}
+
+
 //显示笔记内容
 function showNoteBodyAction(){
 	//点击笔记后，先把其他笔记的子菜单隐藏，然后显示选中笔记的子菜单

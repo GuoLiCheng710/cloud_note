@@ -21,29 +21,29 @@ public class UserServiceImpl implements UserService {
 
 	public User login(String name, String password) throws NameException, PasswordException {
 		if(name == null || name.trim().isEmpty()){
-			throw new NameException("ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+			throw new NameException("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 		}
 		if(password == null || password.trim().isEmpty()){
-			throw new NameException("ÃÜÂë²»ÄÜÎª¿Õ");
+			throw new NameException("å¯†ç ä¸èƒ½ä¸ºç©º");
 		}
 		User user = userDao.findUserByName(name);
 		if(user == null){
-			throw new NameException("ÓÃ»§²»´æÔÚ");
+			throw new NameException("ç”¨æˆ·ä¸å­˜åœ¨");
 		}
 		if(user.getPassword().equals(Util.salMD5(password))){
 			return user;
 		}
-		throw new PasswordException("ÃÜÂë´íÎó");
+		throw new PasswordException("å¯†ç é”™è¯¯");
 	}
 	public User regist(String name,String nick,String password,String confirmPassword) throws NameException,PasswordException{
 		if(name == null || name.trim().isEmpty()){
-			throw new NameException("ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+			throw new NameException("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 		}
 		if(password == null || password.trim().isEmpty() ){
-			throw new PasswordException("ÃÜÂë²»ÄÜÎª¿Õ");
+			throw new PasswordException("å¯†ç ä¸èƒ½ä¸ºç©º");
 		}
 		if(!password.equals(confirmPassword)){
-			throw new PasswordException("ÊäÈëÃÜÂë²»Ò»ÖÂ");
+			throw new PasswordException("ä¸¤æ¬¡è¾“å…¥ä¸ä¸€è‡´");
 		}
 		if(nick == null || nick.trim().isEmpty()){
 			nick = name;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	}
 	public boolean isUserExistByName(String name) throws NameException {
 		if(name == null || name.trim().isEmpty()){
-			throw new NameException("ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+			throw new NameException("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 		}
 		User user = userDao.findUserByName(name);
 		if(user == null){
@@ -68,11 +68,11 @@ public class UserServiceImpl implements UserService {
 	}
 	public boolean checkOldPassword(String userId, String oldPassword) throws NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId²»ÄÜÎª¿Õ");
+			throw new NotFoundUserException("userIdä¸èƒ½ä¸ºç©º");
 		}
 		User user = userDao.selectUserById(userId);
 		if(user == null){
-			throw new NotFoundUserException("²»´æÔÚ¸ÃÓÃ»§");
+			throw new NotFoundUserException("ç”¨æˆ·ä¸å­˜åœ¨");
 		}
 		if(user.getPassword().equals(Util.salMD5(oldPassword))){
 			return true;
@@ -82,17 +82,17 @@ public class UserServiceImpl implements UserService {
 	public boolean changePassword(String userId, String newPassword, String confirmPassword)
 			throws NotFoundUserException,PasswordException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId ²»ÄÜÎª¿Õ");
+			throw new NotFoundUserException("userIdä¸èƒ½ä¸ºç©º");
 		}
 		int isExist = userDao.findUserByUserId(userId);
 		if(isExist != 1){
-			throw new NotFoundUserException("¸ÃÓÃ»§²»´æÔÚ");
+			throw new NotFoundUserException("ç”¨æˆ·ä¸å­˜åœ¨");
 		}
 		if(newPassword == null || newPassword.trim().isEmpty()){
-			throw new PasswordException("ÃÜÂë²»ÄÜÎª¿Õ");
+			throw new PasswordException("å¯†ç ä¸èƒ½ä¸ºç©º");
 		}
 		if(!newPassword.equals(confirmPassword)){
-			throw new PasswordException("Á½´ÎÊäÈë²»Ò»ÖÂ");
+			throw new PasswordException("ä¸¤æ¬¡è¾“å…¥ä¸ä¸€è‡´");
 		}
 		User user = new User();
 		user.setId(userId);

@@ -1,3 +1,6 @@
+/**
+ * 公用抽象类，用于处理异常
+ */
 package com.zrar.note.web;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;

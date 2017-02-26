@@ -25,9 +25,9 @@ $(function(){
 	$('body').click(hideNoteMenuAction);
 	//监听点击笔记子菜单中的删除按钮
 	$('#note').on('click','.btn_delete',showDeleteNoteDialogAction);
-	
+	//点击回收站图标，显示本账户下在回收站的笔记
 	$('#rollback_button').click(showRecyclingNotesAction);
-	
+	$('#edit_note').click(showEditNoteView);
 });
 
 //点击添加笔记按钮操作

@@ -26,11 +26,11 @@ public class NotebookServiceImpl implements NotebookService {
 	
 	public List<Map<String, Object>> listNotebook(String userId) throws NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId ²»ÄÜÎª¿Õ");
+			throw new NotFoundUserException("userId ä¸èƒ½ä¸ºç©º");
 		}
 		int isExist = userDao.findUserByUserId(userId);
 		if(isExist == 0){
-			throw new NotFoundUserException("ÓÃ»§²»´æÔÚ");
+			throw new NotFoundUserException("ç”¨æˆ·ä¸å­˜åœ¨");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
@@ -42,14 +42,14 @@ public class NotebookServiceImpl implements NotebookService {
 	
 	public Notebook addNotebook(String userId, String name) throws NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
-			throw new NotFoundUserException("userId ²»ÄÜÎª¿Õ");
+			throw new NotFoundUserException("userId ä¸èƒ½ä¸ºç©º");
 		}
 		int isExist = userDao.findUserByUserId(userId);
 		if(isExist == 0){
-			throw new NotFoundUserException("ÓÃ»§²»´æÔÚ");
+			throw new NotFoundUserException("ç”¨æˆ·ä¸å­˜åœ¨");
 		}
 		if(name == null || name.trim().isEmpty()){
-			name = "ĞÂ½¨±Ê¼Ç±¾";
+			name = "æ–°å»ºç¬”è®°æœ¬";
 		}
 		Notebook notebook = new Notebook();
 		notebook.setId(UUID.randomUUID().toString());
@@ -60,7 +60,7 @@ public class NotebookServiceImpl implements NotebookService {
 		notebook.setCreateTime(new Date());
 		int i = notebookDao.insertNotebook(notebook);
 		if(i != 1){
-			throw new RuntimeException("ĞÂ½¨±Ê¼Ç±¾Ê§°Ü");
+			throw new RuntimeException("ç¬”è®°æœ¬æ–°å»ºå¤±è´¥");
 		}
 		return notebook;
 	}

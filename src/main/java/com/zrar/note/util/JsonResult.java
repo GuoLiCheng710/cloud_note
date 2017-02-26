@@ -1,10 +1,10 @@
 package com.zrar.note.util;
 /**
- * ÓÃÓÚ·â×°AJAXµ÷ÓÃÒÔºóµÄJSON·µ»ØÖµ
- * ÆäÖĞÕıÈ··µ»ØÖµ:
- *  {state:0, data:·µ»ØÊı¾İ, message:""}
- * ´íÎó·µ»ØÖµ:
- *  {state:1, data:null, message:´íÎóÏûÏ¢}
+ * åŒ…è£…è¿”å›å€¼
+ * æˆåŠŸæ—¶è¿”å›ï¼š
+ *  {state:0, data:è¿”å›å†…å®¹, message:""}
+ * å¼‚å¸¸æ˜¯è¿”å›ï¼š
+ *  {state:1, data:null, message:å¼‚å¸¸ä¿¡æ¯}
  */
 import java.io.Serializable;
 
@@ -12,15 +12,15 @@ public class JsonResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ·µ»ØÊÇ·ñ³É¹¦µÄ×´Ì¬£º0 ³É¹¦£»1 Ê§°Ü
+	 * å¸¸é‡
 	 */
 	public static final int SUCCESS = 0;
 	public static final int ERROR = 1;
 	
 	private int state;
-	//³É¹¦Ê±·µ»Ødata
+	//æˆåŠŸæ—¶è¿”å›data
 	private Object data;
-	//Ê§°ÜÊ±·µ»Ømessage
+	//å¼‚å¸¸æ—¶è¿”å›message
 	private String message;
 	
 	public JsonResult() {
