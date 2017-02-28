@@ -17,7 +17,7 @@ public interface NoteService {
 	
 	Note addNote(String notebookId,String userId,String title) throws NotFoundNotebookException,NotFoundUserException;
 	
-	boolean deleteNoteToRecycle(String noteId) throws NotFoundNoteException;
+	boolean updateNoteState(String noteId,String stateType) throws NotFoundNoteException;
 	
 	List<Map<String, Object>> listNoteOnRecycle(String userId) throws NotFoundUserException;
 }

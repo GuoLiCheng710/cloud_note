@@ -57,7 +57,7 @@ model.updateNoteView = function(notes){
 	}
 }
 //预览笔记body
-//function showNoteBodyAction(){
+//function showEditNoteView(){
 //	$('#note .btn_slide_down').hide();
 //	$(this).find('.btn_slide_down').show();
 //	//获取点击的笔记序号
@@ -177,22 +177,38 @@ function hideNoteMenuAction(){
 }
 //点击笔记子菜单删除按钮操作
 function showDeleteNoteDialogAction(){
+	stateType = '1';
 	$('#can').load('./alert/alert_delete_note.html',function(){
 		$('.opacity_bg').show();
-		$('.sure').click(deleteNoteAction);
+		$('.sure').click(updateNoteStateAction);
 	});
 }
 //点击确定删除按钮
-function deleteNoteAction(){
-	var noteId = model.notes[model.noteIndex].id;
-	var url = 'note/delete.do';
-	var param = {'noteId':noteId};
+function updateNoteStateAction(){
+	var noteId;
+	if(stateType == '1'){
+		//1 代表删除至回收站
+		noteId = model.notes[model.noteIndex].id;
+	} else if(stateType == '2'){
+		//2 代表第彻底删除
+		noteId = model.notesRecycle[model.noteIndexRecycle].id;
+	} else {
+		noteId = model.notesRecycle[model.noteIndexRecycle].id;
+	}
+	debugger;
+	var url = 'note/state.do';
+	var param = {'noteId':noteId,'stateType':stateType};
 	$.post(url,param,function(result){
 		if(result.state == SUCCESS){
 			$('#can').empty();
 			$('.opacity_bg').hide();
-			model.notes.splice(model.noteIndex,1);
-			model.updateNoteView();
+			if(stateType == '1'){
+				model.notes.splice(model.noteIndex,1);
+				model.updateNoteView();
+			} else{
+				model.notesRecycle.splice(model.noteIndexRecycle,1);
+				model.updateNoteOnRecycleView();
+			}
 		} else {
 			alert(result.message)
 		}
@@ -209,7 +225,10 @@ function deleteNoteAction(){
  * 用于在修改notes里面对应note的title时获取到note，以及更新视图时控制选中效果
  */
 //回收站笔记显示
-function showRecyclingNotesAction(){
+function showRecycleNotesAction(){
+	//这里清除model.noteIndex，是为了deleteNote方法重用，为了判断删除类型（正常，回收站0）
+	delete model.noteIndex;
+	//对笔记区域隐藏，显示为回收站笔记
 	$('#pc_part_2').hide();
 	$('#pc_part_4').show();
 	var url = 'note/list/recycle.do';
@@ -224,22 +243,53 @@ function showRecyclingNotesAction(){
 	});
 }
 model.updateNoteOnRecycleView = function(notes){
+	if(notes){
+		this.notesRecycle = notes;
+	}
 	var ul = $('#note_recycle').empty();
 	var template = '<li class="disable">'+
 						'<a>'+
 							'<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> note.title'+
-							'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button>'+
-							'<button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button>'+
+							'<button type="button" class="btn btn-default btn-xs btn_position btn_delete" title="彻底删除" style="display:none"><i class="fa fa-times"></i></button>'+
+							'<button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay" title="还原" style="display:none"><i class="fa fa-reply"></i></button>'+
 						'</a>'+
 				   '</li>';
-	
-	this.notesRecycle = notes;
 	for(var i=0;i<this.notesRecycle.length;i++){
 		var note = this.notesRecycle[i];
-		var li = template.replace('note.title',note.title);
+		var li = $(template.replace('note.title',note.title));
+		li.data('index',i);
 		ul.append(li);
 	}
-	
-	
-	
 }
+//点击回收站里的笔记，对其内容进行显示
+function showNoteBodyOnRecycleAction(){
+	//点击笔记后，显示菜单按钮
+	$('#note_recycle .btn_delete,.btn_replay').hide();
+	$(this).find('.btn_delete,.btn_replay').show();
+	//点击笔记后，清楚其他笔记选中效果，当前笔记添加笔记效果
+	$(this).siblings().find('a').removeClass('checked');
+	$(this).find('a').addClass('checked');
+	//对笔记内容进行显示,此功能暂时搁置下
+	//$('#pc_part_3').hide();
+	//$('#pc_part_5').show();
+	//获取选中
+	var index = $(this).data('index');
+	model.noteIndexRecycle = index;
+}
+//点击彻底删除笔记按钮
+function showRemoveNoteDialogAction(){
+	stateType = '2';
+	$('#can').load('./alert/alert_delete_rollback.html',function(){
+		$('.opacity_bg').show();
+		$('.sure').click(updateNoteStateAction);
+	});
+}
+//回收站点击笔记还原按钮
+function showRecoverNoteDialogAction(){
+	stateType = '3';
+	$('#can').load('./alert/alert_replay.html',function(){
+		$('.opacity_bg').show();
+		$('.sure').click(updateNoteStateAction);
+	});
+}
+

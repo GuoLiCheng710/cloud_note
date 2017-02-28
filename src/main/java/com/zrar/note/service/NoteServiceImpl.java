@@ -119,7 +119,7 @@ public class NoteServiceImpl implements NoteService {
 		}
 		return note;
 	}
-	public boolean deleteNoteToRecycle(String noteId) throws NotFoundNoteException {
+	public boolean updateNoteState(String noteId,String stateType) throws NotFoundNoteException {
 		if(noteId == null || noteId.trim().isEmpty()){
 			throw new NotFoundNoteException("noteId 不能为空");
 		}
@@ -127,9 +127,21 @@ public class NoteServiceImpl implements NoteService {
 		if(isExist != 1){
 			throw new NotFoundNoteException("笔记不存在");
 		}
+		if(stateType == null || stateType.trim().isEmpty()){
+			throw new NotFoundNoteException("deleteType为空");
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noteId", noteId);
-		map.put("noteStatusId", Constant.NOTE_STATUS_ID_2);
+		if("1".equals(stateType)){
+			//1 时删除至回收站
+			map.put("noteStatusId", Constant.NOTE_STATUS_ID_2);
+		} else if("2".equals(stateType)){
+			//2 时彻底删除，这里处理为假删
+			map.put("noteStatusId", Constant.NOTE_STATUS_ID_0);
+		} else {
+			//3时从回收站还原
+			map.put("noteStatusId", Constant.NOTE_STATUS_ID_1);
+		}
 		int i = noteDao.updateNote(map);
 		return i == 1;
 	}

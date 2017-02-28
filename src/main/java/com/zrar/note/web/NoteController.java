@@ -47,10 +47,10 @@ public class NoteController extends AbstractController {
 		Note note = noteService.addNote(notebookId, userId, title);
 		return new JsonResult(note);
 	}
-	@RequestMapping("/delete.do")
+	@RequestMapping("/state.do")
 	@ResponseBody
-	public JsonResult deleteNote(String noteId){
-		boolean b = noteService.deleteNoteToRecycle(noteId);
+	public JsonResult updateNoteState(String noteId,String stateType){
+		boolean b = noteService.updateNoteState(noteId,stateType);
 		return new JsonResult(b);
 	}
 	@RequestMapping("/list/recycle.do")

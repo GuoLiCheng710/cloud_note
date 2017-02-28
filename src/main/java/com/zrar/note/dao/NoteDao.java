@@ -18,7 +18,4 @@ public interface NoteDao {
 	
 	List<Map<String, Object>> findNotesOnRecycle(Map<String, Object> map);
 	
-	int deleteNoteCompletely(String noteId);
-	
-	
 }
