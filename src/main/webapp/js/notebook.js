@@ -1,6 +1,12 @@
 function showNotebooksAction(){
+		console.log('1');
 		var url = 'notebook/list.do';
-		var param = {'userId':getCookie('userId')};
+		if(!model.notebooks){
+			model.pageNum = 0;
+		} else {
+			model.pageNum++;
+		}
+		var param = {'userId':getCookie('userId'),'pageNum':model.pageNum};
 		$.getJSON(url,param,function(result){
 			if(result.state==SUCCESS){
 				var notebooks = result.data;
@@ -12,9 +18,11 @@ function showNotebooksAction(){
 
 //模型中的更新视图方法, 当收到笔记本数据时候更新界面的显示内容
 model.updateNotebookView= function(notebooks){
-	if(notebooks){
+	if(!this.notebooks){
 		//this就是当前对象，就是model
 		this.notebooks = notebooks;
+	} else {
+		this.notebooks = this.notebooks.concat(notebooks);
 	}
 	var ul = $('#notebook').empty();
 	var template = '<li class="online">'+
@@ -30,6 +38,9 @@ model.updateNotebookView= function(notebooks){
 		li.data('index',i);
 		ul.append(li);
 	}
+	var li='<a class="online more" style="padding:40px">More...</a>'
+	ul.append(li);
+
 }
 //添加笔记本操作
 function addNotebookAction(){

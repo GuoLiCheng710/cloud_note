@@ -9,6 +9,7 @@ var stateType;
 $(function(){
 	//加载笔记本方法(notebook.js)
 	showNotebooksAction();
+	$('#notebook').on('click','.more',showNotebooksAction);
 	//点击笔记本后，加载笔记本下的笔记(note.js)
 	$('#notebook').on('click','li',showNotesAction);
 	//点击笔后，加载笔记内容(note.js)
@@ -30,13 +31,17 @@ $(function(){
 	//点击回收站图标，显示本账户下在回收站的笔记
 	$('#rollback_button').click(showRecycleNotesAction);
 	//此功能是为了先加载笔记预览，点击编辑笔记按钮后再做编辑笔记的处理，但是实现的不是很好，先隐藏
-	//$('#edit_note').click(showEditNoteView);
+	$('#edit_note').click(showEditNoteView);
 	//监听点击回收站里的笔记，对其内容进行显示
 	$('#note_recycle').on('click','li',showNoteBodyOnRecycleAction);
 	//监听点击回收站里笔记的彻底删除按钮
 	$('#note_recycle').on('click','.btn_delete',showRemoveNoteDialogAction);
 	//监听点击回收站里笔记的恢复按钮
 	$('#note_recycle').on('click','.btn_replay',showRecoverNoteDialogAction);
+	
+	
+	
+	
 });
 
 

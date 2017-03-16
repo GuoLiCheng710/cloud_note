@@ -25,8 +25,8 @@ public class NotebookController extends AbstractController {
 	
 	@RequestMapping("/list.do")
 	@ResponseBody
-	public JsonResult listNotebook(String userId){
-		List<Map<String, Object>> list = notebookService.listNotebook(userId);
+	public JsonResult listNotebook(String userId,int pageNum){
+		List<Map<String, Object>> list = notebookService.listNotebook(userId,pageNum);
 		return new JsonResult(list);
 	}
 	@RequestMapping("/add.do")

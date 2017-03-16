@@ -57,34 +57,9 @@ model.updateNoteView = function(notes){
 	}
 }
 //预览笔记body
-//function showEditNoteView(){
-//	$('#note .btn_slide_down').hide();
-//	$(this).find('.btn_slide_down').show();
-//	//获取点击的笔记序号
-//	var index = $(this).data('index');
-//	//记录当前笔记的序号
-//	model.noteIndex = index;
-//	var noteId = model.notes[index].id;
-//	$(this).siblings().find('a').removeClass('checked');
-//	$(this).find('a').addClass('checked');
-//	var url = 'note/body.do';
-//	var param = {'noteId':noteId};
-//	$.getJSON(url,param,function(result){
-//		if(result.state == SUCCESS){
-//			var note = result.data;
-//			$('#noput_note_title').empty().text(note.title).siblings().remove();
-//			$('#noput_note_title').parent().append(note.body);
-//			
-//		} else{
-//			alert('哎呦！出错啦！');
-//		}
-//	});
-//}
-
-
-//显示笔记内容
 function showNoteBodyAction(){
-	//点击笔记后，先把其他笔记的子菜单隐藏，然后显示选中笔记的子菜单
+	$('#pc_part_3').hide();
+	$('#pc_part_5').show();
 	$('#note .btn_slide_down').hide();
 	$(this).find('.btn_slide_down').show();
 	//获取点击的笔记序号
@@ -98,11 +73,47 @@ function showNoteBodyAction(){
 	var param = {'noteId':noteId};
 	$.getJSON(url,param,function(result){
 		if(result.state == SUCCESS){
-			model.updateBodyView(result.data);
+			var note = result.data;
+			model.note = result.data;
+			$('#noput_note_title').empty().text(note.title).siblings().remove();
+			$('#noput_note_title').parent().append(note.body);
+			
+		} else{
+			alert('哎呦！出错啦！');
 		}
 	});
 }
+function showEditNoteView(){
+	$('#pc_part_3').show();
+	$('#pc_part_5').hide();
+	model.updateBodyView(model.note);
+	
+}
+
+//显示笔记内容
+//function showNoteBodyAction(){
+//	$('#pc_part_3').show();
+//	$('#pc_part_5').hide();
+//	//点击笔记后，先把其他笔记的子菜单隐藏，然后显示选中笔记的子菜单
+//	$('#note .btn_slide_down').hide();
+//	$(this).find('.btn_slide_down').show();
+//	//获取点击的笔记序号
+//	var index = $(this).data('index');
+//	//记录当前笔记的序号
+//	model.noteIndex = index;
+//	var noteId = model.notes[index].id;
+//	$(this).siblings().find('a').removeClass('checked');
+//	$(this).find('a').addClass('checked');
+//	var url = 'note/body.do';
+//	var param = {'noteId':noteId};
+//	$.getJSON(url,param,function(result){
+//		if(result.state == SUCCESS){
+//			model.updateBodyView(result.data);
+//		}
+//	});
+//}
 model.updateBodyView = function(note){
+	console.log(note);
 	this.note = note;
 	$('#input_note_title').empty().val(this.note.title);
 	um.setContent(this.note.body);
@@ -270,11 +281,23 @@ function showNoteBodyOnRecycleAction(){
 	$(this).siblings().find('a').removeClass('checked');
 	$(this).find('a').addClass('checked');
 	//对笔记内容进行显示,此功能暂时搁置下
-	//$('#pc_part_3').hide();
-	//$('#pc_part_5').show();
+	$('#pc_part_3').hide();
+	$('#pc_part_5').show();
 	//获取选中
 	var index = $(this).data('index');
 	model.noteIndexRecycle = index;
+	var noteId = model.notesRecycle[index].id;
+	$(this).siblings().find('a').removeClass('checked');
+	$(this).find('a').addClass('checked');
+	var url = 'note/body.do';
+	var param = {'noteId':noteId};
+	$.getJSON(url,param,function(result){
+		if(result.state == SUCCESS){
+			var note = result.data;
+			$('#noput_note_title').empty().text(note.title).siblings().remove();
+			$('#noput_note_title').parent().append(note.body);
+		}
+	});
 }
 //点击彻底删除笔记按钮
 function showRemoveNoteDialogAction(){

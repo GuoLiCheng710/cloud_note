@@ -11,4 +11,7 @@ public interface NotebookDao {
 	  int findNotebookByNotebookId(String notebookId);
 	  
 	  int insertNotebook(Notebook notebook);
+	  
+	  List<Map<String,Object>> findNotebooksByParam(Map<String, Object> map);
+	  
 }

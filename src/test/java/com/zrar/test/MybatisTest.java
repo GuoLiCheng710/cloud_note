@@ -136,6 +136,25 @@ public class MybatisTest {
     	System.out.println(i);
     }
     
-    
+    @Test
+    public void testFindNotebooksByParam(){
+        String id="39295a3d-cc9b-42b4-b206-a2e7fab7e77c";
+        String table="cn_notebook";
+        int start = 0;
+        int rows = 6;
+        Map<String, Object> param=
+            new HashMap<String, Object>();
+        param.put("userId", id);
+        param.put("tableName", table);
+        param.put("start", start);
+        param.put("rows", rows);
+        NotebookDao dao=ctx.getBean(
+            "notebookDao", NotebookDao.class);
+        List<Map<String, Object>> list=
+            dao.findNotebooksByParam(param);
+        for (Map<String, Object> map : list) {
+            System.out.println(map); 
+        }
+    }
     
 }

@@ -24,7 +24,7 @@ public class NotebookServiceImpl implements NotebookService {
 	@Resource
 	private UserDao userDao;
 	
-	public List<Map<String, Object>> listNotebook(String userId) throws NotFoundUserException {
+	public List<Map<String, Object>> listNotebook(String userId,int pageNum) throws NotFoundUserException {
 		if(userId == null || userId.trim().isEmpty()){
 			throw new NotFoundUserException("userId 不能为空");
 		}
@@ -32,9 +32,14 @@ public class NotebookServiceImpl implements NotebookService {
 		if(isExist == 0){
 			throw new NotFoundUserException("用户不存在");
 		}
+		int size = 6;
+		int start = size * pageNum;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("statusId", Constant.NOTEBOOK_STATUS_ID_1);
+		map.put("tableName", "cn_notebook");
+		map.put("start", start);
+		map.put("rows", size);
 		List<Map<String, Object>> list = notebookDao.findNotebooksByUserId(map);
 		
 		return list;

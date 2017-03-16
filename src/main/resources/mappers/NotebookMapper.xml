@@ -2,16 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.zrar.note.dao.NotebookDao">
+
+	<select id="findNotebooksByParam" parameterType="map" resultType="map">
+		select
+			cn_notebook_id as id,
+			cn_notebook_name as name
+		from
+			${tableName}
+		where
+			cn_user_id=#{userId}
+			<if test="start != null">
+				limit
+					#{start},#{rows}
+			</if>
+		
+	</select>
+
 	<select id="findNotebooksByUserId" parameterType="map" resultType="map">
 		select
 			cn_notebook_id as "id",
 			cn_notebook_name as name
 		from
-			cn_notebook
+			${tableName}
 		where
 			cn_user_id = #{userId}   
 			and
 			cn_notebook_status_id = #{statusId}
+			<if test="start != null">
+				limit
+					#{start},#{rows}
+			</if>
 	</select>
 	<select id="findNotebookByNotebookId" parameterType="string" resultType="int">
 		select
