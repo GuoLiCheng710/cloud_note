@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zrar.note.dao.NoteDao;
 import com.zrar.note.dao.NotebookDao;
+import com.zrar.note.dao.TtDao;
 import com.zrar.note.dao.UserDao;
 import com.zrar.note.entity.Notebook;
 import com.zrar.note.entity.User;
@@ -156,5 +157,22 @@ public class MybatisTest {
             System.out.println(map); 
         }
     }
+    
+    @Test
+    public void testGetClass(){
+    	int a = 2;
+    	TtDao dao = ctx.getBean("ttDao",TtDao.class);
+    	//System.out.println(dao.getClass(a));
+    	
+    	
+    	//System.out.println(dao.getClass2(a));
+    	
+    	//System.out.println(dao.getClass3(a));
+    	
+    	System.out.println(dao.getClass4(a));
+    }
+    
+    
+    
     
 }

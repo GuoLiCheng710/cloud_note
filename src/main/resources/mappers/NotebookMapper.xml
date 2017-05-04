@@ -23,15 +23,11 @@
 			cn_notebook_id as "id",
 			cn_notebook_name as name
 		from
-			${tableName}
+			cn_notebook
 		where
 			cn_user_id = #{userId}   
 			and
 			cn_notebook_status_id = #{statusId}
-			<if test="start != null">
-				limit
-					#{start},#{rows}
-			</if>
 	</select>
 	<select id="findNotebookByNotebookId" parameterType="string" resultType="int">
 		select

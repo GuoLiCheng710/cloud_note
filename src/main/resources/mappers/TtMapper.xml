@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.zrar.note.dao.TtDao">
+	<select id="getClass" parameterType="int" resultMap="ClassResultMap">
+		select * from class c, teacher t where c.teacher_id=t.t_id and c.c_id=#{id}
+	</select>
+	<resultMap type="com.zrar.note.entity.Classes" id="ClassResultMap">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<association property="teacher" javaType="com.zrar.note.entity.Teacher">
+			<id property="id" column="t_id"/>
+			<result property="name" column="t_name"/>
+		</association>
+	</resultMap>
+	
+	
+	<select id="getClass2" parameterType="int" resultMap="ClassResultMap2">
+    	select * from class where c_id=#{id}
+    </select>
+    <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+    <resultMap type="com.zrar.note.entity.Classes" id="ClassResultMap2">
+       <id property="id" column="c_id"/>
+       <result property="name" column="c_name"/>
+       <association property="teacher" column="teacher_id" select="getTeacher"/>
+    </resultMap>
+      
+    <select id="getTeacher" parameterType="int" resultType="com.zrar.note.entity.Teacher">
+       SELECT t_id id, t_name name FROM teacher WHERE t_id=#{id}
+    </select>
+	
+	
+	<select id="getClass3" parameterType="int" resultMap="ClassResultMap3">
+		select * from class c, teacher t,student s where c.teacher_id=t.t_id and c.C_id=s.class_id and  c.c_id=#{id}
+	</select>
+	<resultMap type="com.zrar.note.entity.Classes" id="ClassResultMap3">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<association property="teacher" column="teacher_id" javaType="com.zrar.note.entity.Teacher">
+			<id property="id" column="t_id"/>
+			<result property="name" column="t_name"/>
+		</association>
+		
+		<!-- ofType指定students集合中的对象类型 -->
+		<collection property="students" ofType="com.zrar.note.entity.Student">
+			<id property="id" column="s_id"/>
+			<result property="name" column="s_name"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="getClass4" parameterType="int" resultMap="ClassResultMap4">
+		select * from class where c_id=#{id}
+	</select>
+	<resultMap type="com.zrar.note.entity.Classes" id="ClassResultMap4">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<association property="teacher" column="teacher_id" javaType="com.zrar.note.entity.Teacher" select="getTeacher2"></association>
+		<collection property="students" ofType="com.zrar.note.entity.Student" column="c_id" select="getStudent"></collection>
+	</resultMap>
+	 
+	<select id="getTeacher2" parameterType="int" resultType="com.zrar.note.entity.Teacher">
+	   SELECT t_id id, t_name name FROM teacher WHERE t_id=#{id}
+	</select>
+	
+	<select id="getStudent" parameterType="int" resultType="com.zrar.note.entity.Student">
+	   SELECT s_id id, s_name name FROM student WHERE class_id=#{id}
+	</select>
+	
+	
+</mapper>
+
+
+
